@@ -1,6 +1,7 @@
 #include "Game/Direction.hpp"
 #include "SDL/Context.hpp"
 #include "SDL/Window.hpp"
+#include "TTF/Context.hpp"
 
 #include <SDL_events.h>
 #include <SDL_rect.h>
@@ -28,8 +29,9 @@ int main() {
     constexpr int WINDOW_HEIGHT = 640;
 
     // Resource Acquisition is Initialization!
-    // RAII Guard for the SDL context
-    SDL::Context _guard;
+    // RAII Guard for the full SDL context
+    SDL::Context _system_guard;
+    TTF::Context _ttf_guard;
 
     const auto window = SDL::Window::init("Hello World", WINDOW_WIDTH, WINDOW_HEIGHT);
     const auto renderer = window.create_renderer();
