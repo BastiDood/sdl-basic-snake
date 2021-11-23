@@ -2,7 +2,7 @@
 #include "Renderer.hpp"
 #include <SDL_video.h>
 #include <memory>
-#include <string>
+#include <string_view>
 
 namespace SDL {
     class Window {

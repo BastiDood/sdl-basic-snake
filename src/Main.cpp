@@ -7,10 +7,12 @@
 #include <SDL_rect.h>
 #include <SDL_timer.h>
 
+#include <cassert>
 #include <cstdint>
 #include <optional>
 
-int main() {
+int main(const int argc, char * const argv[]) {
+    assert(argc > 1);
     constexpr int WINDOW_WIDTH = 480;
     constexpr int WINDOW_HEIGHT = 640;
 
@@ -22,7 +24,7 @@ int main() {
     const auto window = SDL::Window::init("Hello World", WINDOW_WIDTH, WINDOW_HEIGHT);
     const auto renderer = window.create_renderer();
 
-    Game::Scene scene;
+    Game::Scene scene{argv[1]};
     constexpr uint64_t RENDER_INTERVAL = 1000;
     auto next_render = static_cast<int64_t>(SDL_GetTicks() + RENDER_INTERVAL);
     while (true) {
@@ -40,8 +42,8 @@ int main() {
         }
 
         // Only re-draw graphics once `RENDER_INTERVAL` has passed
-        // scene.tick();
-        // scene.draw(renderer);
+        scene.tick();
+        scene.draw(renderer);
         next_render = static_cast<int64_t>(SDL_GetTicks() + RENDER_INTERVAL);
     }
 

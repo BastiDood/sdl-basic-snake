@@ -1,6 +1,11 @@
 #include "Scene.hpp"
 
+constexpr int FONT_SIZE = 16;
+
 namespace Game {
+    Scene::Scene(const std::string_view font_path)
+        : m_Font{TTF::Font::load(font_path, FONT_SIZE)} {}
+
     void Scene::handle_mouse(const SDL_Point point) {
         if (!m_IsMenu)
             return;
