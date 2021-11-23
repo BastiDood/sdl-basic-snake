@@ -21,39 +21,45 @@ int main() {
     const auto renderer = window.create_renderer();
 
     constexpr uint64_t RENDER_INTERVAL = 1000;
-    uint64_t next_render = SDL_GetTicks();
+    auto next_render = static_cast<int64_t>(SDL_GetTicks() + RENDER_INTERVAL);
     while (true) {
         // Process all events in the queue first
         SDL_Event event;
-        while (SDL_WaitEventTimeout(&event, RENDER_INTERVAL) != 0) {
+        int64_t timeout = RENDER_INTERVAL;
+        while (SDL_WaitEventTimeout(&event, static_cast<int>(timeout)) != 0) {
             // Stop the program if requested
             if (event.type == SDL_QUIT)
                 return 0;
 
             // Skip all non-keyboard events
-            if (event.type != SDL_KEYDOWN)
+            if (event.type != SDL_KEYDOWN) {
+                timeout = next_render - SDL_GetTicks();
                 continue;
+            }
 
             // Debounce doubled inputs
             const auto data = event.key;
-            if (data.repeat != 0)
+            if (data.repeat != 0) {
+                timeout = next_render - SDL_GetTicks();
                 continue;
+            }
 
             // Skip if direction detection failed
             const auto maybe_direction = derive_direction(data.keysym.sym);
-            if (!maybe_direction)
+            if (!maybe_direction) {
+                timeout = next_render - SDL_GetTicks();
                 continue;
+            }
 
             const auto direction = *maybe_direction;
-            // scene.update(event);
+            // scene.update(direction);
+            timeout = next_render - SDL_GetTicks();
         }
 
         // Only re-draw graphics once `RENDER_INTERVAL` has passed
-        const uint64_t now = SDL_GetTicks();
-        if (now >= next_render) {
-            next_render = now + RENDER_INTERVAL;
-            // scene.draw(renderer);
-        }
+        // scene.tick();
+        // scene.draw(renderer);
+        next_render = static_cast<int64_t>(SDL_GetTicks() + RENDER_INTERVAL);
     }
 
     return 0;
