@@ -9,6 +9,20 @@
 #include <cstdint>
 #include <optional>
 
+constexpr std::optional<Game::Direction> derive_direction(const SDL_Keycode code) {
+    switch (code) {
+        case SDLK_w:
+        case SDLK_UP: return Game::Direction::Up;
+        case SDLK_s:
+        case SDLK_DOWN: return Game::Direction::Down;
+        case SDLK_a:
+        case SDLK_LEFT: return Game::Direction::Left;
+        case SDLK_d:
+        case SDLK_RIGHT: return Game::Direction::Right;
+        default: return {};
+    }
+}
+
 int main() {
     constexpr int WINDOW_WIDTH = 480;
     constexpr int WINDOW_HEIGHT = 640;
