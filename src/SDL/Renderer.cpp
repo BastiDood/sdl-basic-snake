@@ -20,4 +20,6 @@ namespace SDL {
         const int result = SDL_RenderClear(m_Self.get());
         assert(result == 0);
     }
+
+    void Renderer::present() const { SDL_RenderPresent(m_Self.get()); }
 } // namespace SDL
