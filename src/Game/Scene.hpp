@@ -1,3 +1,4 @@
+#pragma once
 #include "../SDL/Renderer.hpp"
 #include "../TTF/Font.hpp"
 #include <SDL_events.h>

@@ -5,6 +5,12 @@ namespace SDL {
     Renderer::Renderer(SDL_Renderer * const self)
         : m_Self{Renderer::UniqPtr{self, &SDL_DestroyRenderer}} {}
 
+    Texture Renderer::create_texture_from_surface(Surface const & surface) const {
+        auto * const texture = SDL_CreateTextureFromSurface(m_Self.get(), surface.m_Self.get());
+        assert(texture);
+        return {texture};
+    }
+
     void Renderer::fill_rect(SDL_Rect const & rect) const {
         const int result = SDL_RenderFillRect(m_Self.get(), &rect);
         assert(result == 0);

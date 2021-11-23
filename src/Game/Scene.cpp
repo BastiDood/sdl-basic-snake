@@ -35,5 +35,13 @@ namespace Game {
             return;
     }
 
-    void Scene::draw(SDL::Renderer const & renderer) const {}
+    void Scene::draw(SDL::Renderer const & renderer) const {
+        if (m_IsMenu) {
+            renderer.set_render_draw_color(0, 0, 0, 1);
+            renderer.clear();
+            renderer.fill_rect(SDL_Rect{0, 0, 50, 50});
+        }
+
+        renderer.present();
+    }
 } // namespace Game

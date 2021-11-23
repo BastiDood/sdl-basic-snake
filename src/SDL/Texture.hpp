@@ -1,14 +1,14 @@
 #pragma once
-#include <SDL_surface.h>
+#include <SDL_render.h>
 #include <memory>
 
 namespace SDL {
-    class Surface {
-        using UniqPtr = std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)>;
+    class Texture {
+        using UniqPtr = std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)>;
         friend class Renderer;
 
       public:
-        Surface(SDL_Surface * self);
+        Texture(SDL_Texture * self);
 
       private:
         const UniqPtr m_Self;

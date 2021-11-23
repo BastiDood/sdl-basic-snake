@@ -1,3 +1,4 @@
+#pragma once
 #include "../SDL/Surface.hpp"
 #include <SDL_ttf.h>
 #include <memory>

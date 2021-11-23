@@ -23,6 +23,9 @@ int main(const int argc, char ** const argv) {
 
     const auto window = SDL::Window::init("Hello World", WINDOW_WIDTH, WINDOW_HEIGHT);
     const auto renderer = window.create_renderer();
+    renderer.set_render_draw_color(0, 0, 0, 1);
+    renderer.clear();
+    renderer.present();
 
     Game::Scene scene{argv[1]};
     constexpr uint64_t RENDER_INTERVAL = 1000;
