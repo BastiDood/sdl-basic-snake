@@ -2,7 +2,6 @@ AllowShortCaseLabelsOnASingleLine: true
 BasedOnStyle: LLVM
 BreakBeforeTernaryOperators: true
 ColumnLimit: 100
-IndentAccessModifiers: true
 IndentCaseLabels: true
 IndentWidth: 4
 NamespaceIndentation: All
