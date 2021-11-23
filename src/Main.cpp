@@ -11,7 +11,7 @@
 #include <cstdint>
 #include <optional>
 
-int main(const int argc, char * const argv[]) {
+int main(const int argc, char ** const argv) {
     assert(argc > 1);
     constexpr int WINDOW_WIDTH = 480;
     constexpr int WINDOW_HEIGHT = 640;

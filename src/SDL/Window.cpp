@@ -9,7 +9,7 @@ namespace SDL {
     Window Window::init(const std::string_view title, const int width, const int height) {
         auto * const self =
             SDL_CreateWindow(title.data(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width,
-                             height, SDL_WINDOW_MAXIMIZED | SDL_WINDOW_OPENGL);
+                             height, SDL_WINDOW_OPENGL);
         assert(self);
         return {self};
     }
