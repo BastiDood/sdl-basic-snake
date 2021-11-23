@@ -1,0 +1,11 @@
+Diagnostics:
+    ClangTidy:
+        Add:
+            - bugprone*
+            - misc*
+            - performance*
+            - readability*
+        Remove:
+            - bugprone-easily-swappable-parameters
+            - readability-braces-around-statements
+            - readability-isolate-declaration

@@ -1,0 +1,12 @@
+-std=c++20
+-Ideps/sdl2/include/
+-pedantic
+-Wall
+-Wextra
+-Wshadow
+-Wunused
+-Wconversion
+-Wpadding
+-Wsign-conversion
+-Wdouble-promotion
+-Wnull-dereference
