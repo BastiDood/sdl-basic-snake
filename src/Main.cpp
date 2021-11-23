@@ -1,4 +1,4 @@
-#include "Game/Direction.hpp"
+#include "Game/Scene.hpp"
 #include "SDL/Context.hpp"
 #include "SDL/Window.hpp"
 #include "TTF/Context.hpp"
@@ -9,20 +9,6 @@
 
 #include <cstdint>
 #include <optional>
-
-constexpr std::optional<Game::Direction> derive_direction(const SDL_Keycode code) {
-    switch (code) {
-        case SDLK_w:
-        case SDLK_UP: return Game::Direction::Up;
-        case SDLK_s:
-        case SDLK_DOWN: return Game::Direction::Down;
-        case SDLK_a:
-        case SDLK_LEFT: return Game::Direction::Left;
-        case SDLK_d:
-        case SDLK_RIGHT: return Game::Direction::Right;
-        default: return {};
-    }
-}
 
 int main() {
     constexpr int WINDOW_WIDTH = 480;
@@ -36,6 +22,7 @@ int main() {
     const auto window = SDL::Window::init("Hello World", WINDOW_WIDTH, WINDOW_HEIGHT);
     const auto renderer = window.create_renderer();
 
+    Game::Scene scene;
     constexpr uint64_t RENDER_INTERVAL = 1000;
     auto next_render = static_cast<int64_t>(SDL_GetTicks() + RENDER_INTERVAL);
     while (true) {
@@ -43,32 +30,12 @@ int main() {
         SDL_Event event;
         int64_t timeout = RENDER_INTERVAL;
         while (SDL_WaitEventTimeout(&event, static_cast<int>(timeout)) != 0) {
-            // Stop the program if requested
             if (event.type == SDL_QUIT)
                 return 0;
-
-            // Skip all non-keyboard events
-            if (event.type != SDL_KEYDOWN) {
-                timeout = next_render - SDL_GetTicks();
-                continue;
-            }
-
-            // Debounce doubled inputs
-            const auto data = event.key;
-            if (data.repeat != 0) {
-                timeout = next_render - SDL_GetTicks();
-                continue;
-            }
-
-            // Skip if direction detection failed
-            const auto maybe_direction = derive_direction(data.keysym.sym);
-            if (!maybe_direction) {
-                timeout = next_render - SDL_GetTicks();
-                continue;
-            }
-
-            const auto direction = *maybe_direction;
-            // scene.update(direction);
+            if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT)
+                scene.update(SDL_Point{event.button.x, event.button.y});
+            else if (event.type == SDL_KEYDOWN && event.key.repeat == 0)
+                scene.update(event.key.keysym.sym);
             timeout = next_render - SDL_GetTicks();
         }
 

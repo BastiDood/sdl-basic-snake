@@ -1,7 +1,7 @@
 namespace TTF {
     class Context {
-        public:
-            Context();
-            ~Context();
+      public:
+        Context();
+        ~Context();
     };
 } // namespace TTF
