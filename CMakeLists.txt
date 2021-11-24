@@ -15,7 +15,7 @@ add_executable(
 )
 
 # Dependency Resolution
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/sdl2)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/SDL2)
 find_package(SDL2 REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::Main SDL2::TTF)
