@@ -14,26 +14,20 @@ add_executable(
     src/Game/Scene.cpp
 )
 
-# Include Directories
-target_include_directories(${PROJECT_NAME} PUBLIC deps/sdl2/include)
-target_include_directories(${PROJECT_NAME} PUBLIC deps/ttf/include)
-
-# Link Directories
-target_link_directories(${PROJECT_NAME} PUBLIC deps/sdl2/lib/x64)
-target_link_directories(${PROJECT_NAME} PUBLIC deps/ttf/lib/x64)
-
-# Static Libraries
-target_link_libraries(${PROJECT_NAME} SDL2main SDL2)
-target_link_libraries(${PROJECT_NAME} SDL2_ttf)
+# Dependency Resolution
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/sdl2)
+find_package(SDL2 REQUIRED)
+find_package(SDL2_ttf REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::Main SDL2::TTF)
 if(WIN32)
-    target_link_libraries(${PROJECT_NAME} Shell32)
+    target_link_libraries(${PROJECT_NAME} PRIVATE Shell32)
 endif()
 
 # C++ Configuration
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 target_compile_options(
     ${PROJECT_NAME}
-    PUBLIC
+    PRIVATE
     -Wall
     -Wextra
     -Wshadow
