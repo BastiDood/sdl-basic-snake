@@ -1,2 +1,5 @@
+.cache
 build
 deps
+res
+compile_commands.json
