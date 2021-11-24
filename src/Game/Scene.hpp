@@ -12,7 +12,7 @@ namespace Game {
         Scene(std::string_view font_path);
 
         /** Reacts to user input. */
-        void update(std::variant<SDL_Point, SDL_Keycode> dir);
+        void on_input(std::variant<SDL_Point, SDL_Keycode> dir);
 
         /** Commits the latest mutations from user input. */
         void tick();

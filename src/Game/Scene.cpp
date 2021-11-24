@@ -16,7 +16,7 @@ namespace Game {
             return;
     }
 
-    void Scene::update(const std::variant<SDL_Point, SDL_Keycode> input) {
+    void Scene::on_input(const std::variant<SDL_Point, SDL_Keycode> input) {
         auto const * const point = std::get_if<SDL_Point>(&input);
         if (point != nullptr) {
             handle_mouse(*point);
@@ -39,7 +39,10 @@ namespace Game {
         if (m_IsMenu) {
             renderer.set_render_draw_color(0, 0, 0, 1);
             renderer.clear();
-            renderer.fill_rect(SDL_Rect{0, 0, 50, 50});
+            renderer.set_render_draw_color(0, 0, 255, 1);
+            renderer.fill_rect(SDL_Rect{0, 0, 100, 100});
+        } else {
+            // Render the game if not in the main menu...
         }
 
         renderer.present();

@@ -9,7 +9,6 @@
 
 #include <cassert>
 #include <cstdint>
-#include <optional>
 
 int main(const int argc, char ** const argv) {
     assert(argc > 1);
@@ -23,14 +22,14 @@ int main(const int argc, char ** const argv) {
 
     const auto window = SDL::Window::init("Hello World", WINDOW_WIDTH, WINDOW_HEIGHT);
     const auto renderer = window.create_renderer();
-    renderer.set_render_draw_color(0, 0, 0, 1);
-    renderer.clear();
-    renderer.present();
 
     Game::Scene scene{argv[1]};
     constexpr uint64_t RENDER_INTERVAL = 1000;
     auto next_render = static_cast<int64_t>(SDL_GetTicks() + RENDER_INTERVAL);
     while (true) {
+        // Only re-draw graphics once `RENDER_INTERVAL` has passed
+        scene.draw(renderer);
+
         // Process all events in the queue first
         SDL_Event event;
         int64_t timeout = RENDER_INTERVAL;
@@ -38,15 +37,13 @@ int main(const int argc, char ** const argv) {
             if (event.type == SDL_QUIT)
                 return 0;
             if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT)
-                scene.update(SDL_Point{event.button.x, event.button.y});
+                scene.on_input(SDL_Point{event.button.x, event.button.y});
             else if (event.type == SDL_KEYDOWN && event.key.repeat == 0)
-                scene.update(event.key.keysym.sym);
+                scene.on_input(event.key.keysym.sym);
             timeout = next_render - SDL_GetTicks();
         }
 
-        // Only re-draw graphics once `RENDER_INTERVAL` has passed
         scene.tick();
-        scene.draw(renderer);
         next_render = static_cast<int64_t>(SDL_GetTicks() + RENDER_INTERVAL);
     }
 
