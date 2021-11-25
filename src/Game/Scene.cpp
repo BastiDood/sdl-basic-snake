@@ -1,15 +1,10 @@
 #include "Scene.hpp"
 #include <SDL_keycode.h>
 
+constexpr int FONT_SIZE = 16;
+
 namespace Game {
-    Scene::Scene(const std::string_view font_path)
-        : m_Font{font_path, 16}, m_Renderer{m_Window.create_renderer()},
-          m_ScoreTexture(m_Renderer.create_texture_from_surface(
-              m_Font.render_text_blended("Score:", {255, 255, 255, 255}))),
-          m_ScoreTextureDimensions(m_ScoreTexture.get_attributes().dimensions),
-          m_RestartTexture{m_Renderer.create_texture_from_surface(m_Font.render_text_blended(
-              "Game over! Press [Space] to restart...", {255, 255, 255, 255}))},
-          m_RestartTextureDimensions(m_RestartTexture.get_attributes().dimensions) {}
+    Scene::Scene(const std::string_view font_path) : m_Font{font_path, FONT_SIZE} {}
 
     void Scene::on_input(const SDL_Keycode input) {
         switch (input) {

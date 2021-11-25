@@ -5,6 +5,12 @@ namespace SDL {
     Renderer::Renderer(SDL_Renderer * const self)
         : self{Renderer::Pointer{self, &SDL_DestroyRenderer}} {}
 
+    SDL_Point Renderer::get_viewport_dimensions() const {
+        SDL_Rect rect;
+        SDL_RenderGetViewport(self.get(), &rect);
+        return {rect.w, rect.h};
+    }
+
     Texture Renderer::create_texture_from_surface(Surface const & surface) const {
         auto * const texture = SDL_CreateTextureFromSurface(self.get(), surface.self.get());
         assert(texture);
