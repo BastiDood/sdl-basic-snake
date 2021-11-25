@@ -1,15 +1,19 @@
 #pragma once
 #include <SDL_surface.h>
+#include <memory>
+
+namespace TTF {
+    class Font;
+}
 
 namespace SDL {
     class Surface {
+        using Pointer = std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)>;
         friend class Renderer;
-
-      public:
-        Surface(SDL_Surface * self);
-        ~Surface();
+        friend class TTF::Font;
 
       private:
-        SDL_Surface * const self;
+        Surface(SDL_Surface * self);
+        const Pointer self;
     };
 } // namespace SDL

@@ -3,16 +3,13 @@
 #include <cassert>
 
 namespace TTF {
-    Font::Font(std::string_view path, int ptsize) : self{TTF_OpenFont(path.data(), ptsize)} {
+    Font::Font(std::string_view path, int ptsize)
+        : self{Font::Pointer{TTF_OpenFont(path.data(), ptsize), &TTF_CloseFont}} {
         assert(self);
     }
 
-    Font::Font(Font && other) noexcept : self{other.self} { other.self = nullptr; }
-
-    Font::~Font() { TTF_CloseFont(self); }
-
     SDL::Surface Font::render_text_blended(const std::string_view text, const SDL_Color fg) const {
-        auto * const surface = TTF_RenderText_Blended(self, text.data(), fg);
+        auto * const surface = TTF_RenderText_Blended(self.get(), text.data(), fg);
         assert(surface);
         return {surface};
     }

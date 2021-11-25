@@ -4,13 +4,14 @@
 #include <SDL_rect.h>
 #include <SDL_render.h>
 #include <cstdint>
+#include <memory>
 
 namespace SDL {
     class Renderer {
+        using Pointer = std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)>;
+
       public:
         Renderer(SDL_Renderer * self);
-        Renderer(Renderer && other) noexcept;
-        ~Renderer();
 
         Texture create_texture_from_surface(Surface const & surface) const;
 
@@ -23,6 +24,6 @@ namespace SDL {
         void present() const;
 
       private:
-        SDL_Renderer * self;
+        Pointer self;
     };
 } // namespace SDL

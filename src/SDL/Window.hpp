@@ -1,17 +1,19 @@
 #pragma once
 #include "Renderer.hpp"
 #include <SDL_video.h>
+#include <memory>
 #include <string_view>
 
 namespace SDL {
     class Window {
+        using Pointer = std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)>;
+
       public:
         Window(std::string_view title, int width, int height);
-        ~Window();
 
         Renderer create_renderer() const;
 
       private:
-        SDL_Window * const self;
+        const Pointer self;
     };
 } // namespace SDL

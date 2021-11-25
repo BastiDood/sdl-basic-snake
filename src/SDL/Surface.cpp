@@ -2,6 +2,5 @@
 #include <SDL_surface.h>
 
 namespace SDL {
-    Surface::Surface(SDL_Surface * const self) : self{self} {}
-    Surface::~Surface() { SDL_FreeSurface(self); }
+    Surface::Surface(SDL_Surface * const self) : self{Surface::Pointer{self, &SDL_FreeSurface}} {}
 } // namespace SDL

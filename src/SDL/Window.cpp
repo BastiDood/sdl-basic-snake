@@ -5,15 +5,15 @@
 
 namespace SDL {
     Window::Window(const std::string_view title, const int width, const int height)
-        : self{SDL_CreateWindow(title.data(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                                width, height, SDL_WINDOW_OPENGL)} {
+        : self{Window::Pointer{SDL_CreateWindow(title.data(), SDL_WINDOWPOS_UNDEFINED,
+                                                SDL_WINDOWPOS_UNDEFINED, width, height,
+                                                SDL_WINDOW_OPENGL),
+                               &SDL_DestroyWindow}} {
         assert(self);
     }
 
-    Window::~Window() { SDL_DestroyWindow(self); }
-
     Renderer Window::create_renderer() const {
-        auto * const renderer = SDL_CreateRenderer(self, -1, SDL_RENDERER_ACCELERATED);
+        auto * const renderer = SDL_CreateRenderer(self.get(), -1, SDL_RENDERER_ACCELERATED);
         assert(renderer);
         return {renderer};
     }
