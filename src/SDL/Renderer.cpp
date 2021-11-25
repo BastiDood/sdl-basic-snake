@@ -1,5 +1,4 @@
 #include "Renderer.hpp"
-#include <SDL_render.h>
 #include <cassert>
 
 namespace SDL {
@@ -23,8 +22,11 @@ namespace SDL {
         assert(result == 0);
     }
 
-    void Renderer::render_copy(SDL::Texture const & texture) const {
-        const int result = SDL_RenderCopy(self.get(), texture.self.get(), nullptr, nullptr);
+    void Renderer::render_copy(SDL::Texture const & texture, std::optional<SDL_Rect> const & src,
+                               std::optional<SDL_Rect> const & dest) const {
+        auto const * const a = src.has_value() ? &src.value() : nullptr;
+        auto const * const b = dest.has_value() ? &dest.value() : nullptr;
+        const int result = SDL_RenderCopy(self.get(), texture.self.get(), a, b);
         assert(result == 0);
     }
 

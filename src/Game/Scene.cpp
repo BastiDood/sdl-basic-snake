@@ -6,8 +6,10 @@ namespace Game {
         : m_Font{font_path, 16}, m_Renderer{m_Window.create_renderer()},
           m_ScoreTexture(m_Renderer.create_texture_from_surface(
               m_Font.render_text_blended("Score:", {255, 255, 255, 255}))),
+          m_ScoreTextureDimensions(m_ScoreTexture.get_attributes().dimensions),
           m_RestartTexture{m_Renderer.create_texture_from_surface(m_Font.render_text_blended(
-              "Game over! Press [Space] to restart...", {255, 255, 255, 255}))} {}
+              "Game over! Press [Space] to restart...", {255, 255, 255, 255}))},
+          m_RestartTextureDimensions(m_RestartTexture.get_attributes().dimensions) {}
 
     void Scene::on_input(const SDL_Keycode input) {
         switch (input) {
@@ -30,7 +32,9 @@ namespace Game {
 
     void Scene::draw() const {
         m_Renderer.clear();
-        m_Renderer.render_copy(m_ScoreTexture);
+        m_Renderer.render_copy(
+            m_RestartTexture, {},
+            SDL_Rect{0, 0, m_RestartTextureDimensions.x, m_RestartTextureDimensions.y});
         m_Renderer.present();
     }
 } // namespace Game

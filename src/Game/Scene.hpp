@@ -3,6 +3,7 @@
 #include "../SDL/Window.hpp"
 #include "../TTF/Font.hpp"
 #include <SDL_events.h>
+#include <SDL_rect.h>
 #include <cstdint>
 #include <string_view>
 
@@ -33,8 +34,12 @@ namespace Game {
         const SDL::Renderer m_Renderer;
         /** Cached texture for keeping the "Score" text. */
         const SDL::Texture m_ScoreTexture;
+        /** Texture dimensions for the score texture. */
+        const SDL_Point m_ScoreTextureDimensions;
         /** Cached texture for keeping the "Press Spacebar to Continue" text. */
         const SDL::Texture m_RestartTexture;
+        /** Texture dimensions for the score texture. */
+        const SDL_Point m_RestartTextureDimensions;
 
         /** Initial state of the game is the play screen. */
         bool m_IsPlaying = true;

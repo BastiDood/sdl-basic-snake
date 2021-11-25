@@ -5,6 +5,7 @@
 #include <SDL_render.h>
 #include <cstdint>
 #include <memory>
+#include <optional>
 
 namespace SDL {
     class Renderer {
@@ -19,7 +20,8 @@ namespace SDL {
 
         void set_render_draw_color(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha) const;
 
-        void render_copy(SDL::Texture const &) const;
+        void render_copy(SDL::Texture const &, std::optional<SDL_Rect> const & src,
+                         std::optional<SDL_Rect> const & dest) const;
         void clear() const;
         void present() const;
 
