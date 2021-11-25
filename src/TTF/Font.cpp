@@ -3,7 +3,7 @@
 #include <cassert>
 
 namespace TTF {
-    Font::Font(std::string_view path, int ptsize)
+    Font::Font(const std::string_view path, const int ptsize)
         : self{Font::Pointer{TTF_OpenFont(path.data(), ptsize), &TTF_CloseFont}} {
         assert(self);
     }
