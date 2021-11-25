@@ -1,50 +1,37 @@
 #include "Scene.hpp"
-
-constexpr int FONT_SIZE = 16;
+#include <SDL_keycode.h>
 
 namespace Game {
     Scene::Scene(const std::string_view font_path)
-        : m_Font{TTF::Font::load(font_path, FONT_SIZE)} {}
-
-    void Scene::handle_mouse(const SDL_Point point) {
-        if (!m_IsMenu)
-            return;
+        : m_Font{font_path, 16}, m_Renderer{m_Window.create_renderer()},
+          m_ScoreTexture(m_Renderer.create_texture_from_surface(
+              m_Font.render_text_blended("Score:", {0, 0, 0, 1}))),
+          m_RestartTexture{m_Renderer.create_texture_from_surface(
+              m_Font.render_text_blended("Game over! Press [Space] to restart...", {0, 0, 0, 1}))} {
     }
 
-    void Scene::handle_key(const SDL_Keycode code) {
-        if (m_IsMenu)
-            return;
-    }
-
-    void Scene::on_input(const std::variant<SDL_Point, SDL_Keycode> input) {
-        auto const * const point = std::get_if<SDL_Point>(&input);
-        if (point != nullptr) {
-            handle_mouse(*point);
-            return;
-        }
-
-        auto const * const code = std::get_if<SDL_Keycode>(&input);
-        if (code != nullptr) {
-            handle_key(*code);
-            return;
+    void Scene::on_input(const SDL_Keycode input) {
+        switch (input) {
+            case SDLK_UP:
+            case SDLK_w: break;
+            case SDLK_DOWN:
+            case SDLK_s: break;
+            case SDLK_LEFT:
+            case SDLK_a: break;
+            case SDLK_RIGHT:
+            case SDLK_d: break;
+            case SDLK_SPACE: break;
         }
     }
 
     void Scene::tick() {
-        if (m_IsMenu)
+        if (m_IsPlaying)
             return;
     }
 
-    void Scene::draw(SDL::Renderer const & renderer) const {
-        if (m_IsMenu) {
-            renderer.set_render_draw_color(0, 0, 0, 1);
-            renderer.clear();
-            renderer.set_render_draw_color(0, 0, 255, 1);
-            renderer.fill_rect(SDL_Rect{0, 0, 100, 100});
-        } else {
-            // Render the game if not in the main menu...
-        }
-
-        renderer.present();
+    void Scene::draw() const {
+        m_Renderer.clear();
+        m_Renderer.render_copy(m_RestartTexture);
+        m_Renderer.present();
     }
 } // namespace Game

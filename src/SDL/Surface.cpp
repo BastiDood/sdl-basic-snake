@@ -1,5 +1,7 @@
 #include "Surface.hpp"
+#include <SDL_surface.h>
 
 namespace SDL {
-    Surface::Surface(SDL_Surface * const self) : m_Self{Surface::UniqPtr{self, &SDL_FreeSurface}} {}
+    Surface::Surface(SDL_Surface * const self) : self{self} {}
+    Surface::~Surface() { SDL_FreeSurface(self); }
 } // namespace SDL
