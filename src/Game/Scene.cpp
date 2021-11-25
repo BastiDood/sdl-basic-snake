@@ -5,10 +5,9 @@ namespace Game {
     Scene::Scene(const std::string_view font_path)
         : m_Font{font_path, 16}, m_Renderer{m_Window.create_renderer()},
           m_ScoreTexture(m_Renderer.create_texture_from_surface(
-              m_Font.render_text_blended("Score:", {0, 0, 0, 1}))),
-          m_RestartTexture{m_Renderer.create_texture_from_surface(
-              m_Font.render_text_blended("Game over! Press [Space] to restart...", {0, 0, 0, 1}))} {
-    }
+              m_Font.render_text_blended("Score:", {255, 255, 255, 255}))),
+          m_RestartTexture{m_Renderer.create_texture_from_surface(m_Font.render_text_blended(
+              "Game over! Press [Space] to restart...", {255, 255, 255, 255}))} {}
 
     void Scene::on_input(const SDL_Keycode input) {
         switch (input) {
@@ -31,7 +30,7 @@ namespace Game {
 
     void Scene::draw() const {
         m_Renderer.clear();
-        m_Renderer.render_copy(m_RestartTexture);
+        m_Renderer.render_copy(m_ScoreTexture);
         m_Renderer.present();
     }
 } // namespace Game
