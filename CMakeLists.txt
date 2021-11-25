@@ -1,8 +1,9 @@
-cmake_minimum_required(VERSION 3.19)
+cmake_minimum_required(VERSION 3.12)
 
 project(Snake)
 add_executable(
     ${PROJECT_NAME}
+    WIN32
     src/Main.cpp
     src/SDL/Context.cpp
     src/SDL/Surface.cpp
@@ -28,6 +29,7 @@ target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 target_compile_options(
     ${PROJECT_NAME}
     PRIVATE
+    -pedantic
     -Wall
     -Wextra
     -Wshadow
