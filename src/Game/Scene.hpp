@@ -8,7 +8,6 @@
 #include <string_view>
 
 namespace Game {
-    constexpr size_t DIGIT_COUNT = 10;
     constexpr int WINDOW_WIDTH = 480;
     constexpr int WINDOW_HEIGHT = 640;
     constexpr int FONT_SIZE = 16;
