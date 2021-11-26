@@ -5,6 +5,7 @@
 #include <SDL_events.h>
 #include <SDL_timer.h>
 
+#include <algorithm>
 #include <cassert>
 #include <cstdint>
 
@@ -20,25 +21,25 @@ int main(const int argc, char ** const argv) {
     Game::Scene scene{argv[1]};
 
     // Initialize event loop
-    constexpr uint64_t RENDER_INTERVAL = 1000;
-    auto next_render = static_cast<int64_t>(SDL_GetTicks() + RENDER_INTERVAL);
+    constexpr uint64_t TICK_TIME = 250;
+    auto next_render = static_cast<int64_t>(SDL_GetTicks() + TICK_TIME);
     while (true) {
         // Only re-draw graphics once `RENDER_INTERVAL` has passed
         scene.draw();
 
         // Process all events in the queue first
         SDL_Event event;
-        int64_t timeout = RENDER_INTERVAL;
+        int64_t timeout = TICK_TIME;
         while (SDL_WaitEventTimeout(&event, static_cast<int>(timeout)) != 0) {
             if (event.type == SDL_QUIT)
                 return 0;
             if (event.type == SDL_KEYDOWN && event.key.repeat == 0)
                 scene.on_input(event.key.keysym.sym);
-            timeout = next_render - SDL_GetTicks();
+            timeout = std::max(0LL, next_render - SDL_GetTicks());
         }
 
         scene.tick();
-        next_render = static_cast<int64_t>(SDL_GetTicks() + RENDER_INTERVAL);
+        next_render = static_cast<int64_t>(SDL_GetTicks() + TICK_TIME);
     }
 
     return 0;
