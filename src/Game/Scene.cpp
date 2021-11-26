@@ -20,14 +20,23 @@ namespace Game {
     }
 
     void Scene::tick() {
-        if (is_playing)
-            snake.tick();
+        if (!is_playing)
+            return;
+
+        is_playing = snake.tick();
+        if (!is_playing)
+            snake.reset();
     }
 
     void Scene::draw() const {
-        const SDL_Point dimensions = restart_texture.get_dimensions();
-        renderer.clear();
-        renderer.render_copy(restart_texture, {}, SDL_Rect{0, 0, dimensions.x, dimensions.y});
-        renderer.present();
+        if (!is_playing) {
+            const SDL_Point dimensions = restart_texture.get_dimensions();
+            renderer.clear();
+            renderer.render_copy(restart_texture, {}, {{0, 0, dimensions.x, dimensions.y}});
+            renderer.present();
+            return;
+        }
+
+        // TODO: Render the actual snake state
     }
 } // namespace Game

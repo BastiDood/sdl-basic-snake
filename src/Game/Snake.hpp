@@ -16,6 +16,8 @@ namespace Game {
         void set_current_direction(Direction dir);
         /** Returns `true` if tick was successful. Otherwise, the game is over. */
         bool tick();
+        /** Resets the snake's state. */
+        void reset();
 
       private:
         /** Determines whether a given direction cancels out the current direction. */

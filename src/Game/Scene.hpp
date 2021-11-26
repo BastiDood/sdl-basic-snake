@@ -15,7 +15,7 @@
 namespace Game {
     constexpr int WINDOW_WIDTH = 480;
     constexpr int WINDOW_HEIGHT = 640;
-    constexpr int FONT_SIZE = 16;
+    constexpr int FONT_SIZE = 32;
 
     class Scene {
       public:
