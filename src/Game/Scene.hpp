@@ -7,12 +7,14 @@
 #include <cstdint>
 #include <string_view>
 
-constexpr size_t DIGIT_COUNT = 10;
-constexpr int WINDOW_WIDTH = 480;
-constexpr int WINDOW_HEIGHT = 640;
-
 namespace Game {
+    constexpr size_t DIGIT_COUNT = 10;
+    constexpr int WINDOW_WIDTH = 480;
+    constexpr int WINDOW_HEIGHT = 640;
+    constexpr int FONT_SIZE = 16;
+
     class Scene {
+
       public:
         Scene(std::string_view font_path);
 

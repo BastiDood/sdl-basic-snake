@@ -1,8 +1,6 @@
 #include "Scene.hpp"
 #include <SDL_keycode.h>
 
-constexpr int FONT_SIZE = 16;
-
 namespace Game {
     Scene::Scene(const std::string_view font_path) : m_Font{font_path, FONT_SIZE} {}
 
