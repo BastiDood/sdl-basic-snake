@@ -3,7 +3,6 @@
 #include "TTF/Context.hpp"
 
 #include <SDL_events.h>
-#include <SDL_rect.h>
 #include <SDL_timer.h>
 
 #include <cassert>
