@@ -42,7 +42,7 @@ namespace Game {
 
         /** Cached texture for keeping the "Score" text. */
         const SDL::Texture score_texture{renderer.create_texture_from_surface(
-            font.render_text_blended("Score:", {UINT8_MAX, 255, 255, 255}))};
+            font.render_text_blended("Score:", {255, 255, 255, 255}))};
 
         /** Cached texture for keeping the "Press Spacebar to Continue" text. */
         const SDL::Texture restart_texture{
