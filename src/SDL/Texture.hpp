@@ -10,13 +10,7 @@ namespace SDL {
         friend class Renderer;
 
       public:
-        struct Attributes {
-            uint32_t format;
-            int access;
-            SDL_Point dimensions;
-        };
-
-        Attributes get_attributes() const;
+        SDL_Point get_dimensions() const;
 
       private:
         Texture(SDL_Texture * self);

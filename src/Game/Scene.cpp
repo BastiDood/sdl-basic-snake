@@ -26,10 +26,9 @@ namespace Game {
     }
 
     void Scene::draw() const {
+        const SDL_Point dimensions = m_RestartTexture.get_dimensions();
         m_Renderer.clear();
-        m_Renderer.render_copy(
-            m_RestartTexture, {},
-            SDL_Rect{0, 0, m_RestartTextureDimensions.x, m_RestartTextureDimensions.y});
+        m_Renderer.render_copy(m_RestartTexture, {}, SDL_Rect{0, 0, dimensions.x, dimensions.y});
         m_Renderer.present();
     }
 } // namespace Game

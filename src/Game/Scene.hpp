@@ -34,21 +34,15 @@ namespace Game {
 
         /** Underlying renderer from SDL. */
         const SDL::Renderer m_Renderer{m_Window.create_renderer()};
-        /** Viewport dimensions. We don't expect this to change since resizing is turned off. */
-        const SDL_Point m_ViewportDimensions{m_Renderer.get_viewport_dimensions()};
 
         /** Cached texture for keeping the "Score" text. */
         const SDL::Texture m_ScoreTexture{m_Renderer.create_texture_from_surface(
             m_Font.render_text_blended("Score:", {255, 255, 255, 255}))};
-        /** Texture dimensions for the score texture. */
-        const SDL_Point m_ScoreTextureDimensions{m_ScoreTexture.get_attributes().dimensions};
 
         /** Cached texture for keeping the "Press Spacebar to Continue" text. */
         const SDL::Texture m_RestartTexture{
             m_Renderer.create_texture_from_surface(m_Font.render_text_blended(
                 "Game over! Press [Space] to restart...", {255, 255, 255, 255}))};
-        /** Texture dimensions for the score texture. */
-        const SDL_Point m_RestartTextureDimensions{m_ScoreTexture.get_attributes().dimensions};
 
         /** Initial state of the game is the play screen. */
         bool m_IsPlaying = true;
