@@ -15,7 +15,7 @@
 namespace Game {
     constexpr int WINDOW_WIDTH = 480;
     constexpr int WINDOW_HEIGHT = 640;
-    constexpr int FONT_SIZE = 32;
+    constexpr int FONT_SIZE = 40;
 
     class Scene {
       public:
@@ -31,6 +31,16 @@ namespace Game {
         void draw() const;
 
       private:
+        /** State manager for snake logic. */
+        Snake snake;
+        /** Apple location. */
+        /** Initial state of the game is the play screen. */
+        bool is_playing = true;
+        /** Checks whether the game is pending a new game. */
+        bool pending_reset = false;
+        /** Game starts with no score. */
+        uint16_t score = 0;
+
         /** Font to be used for rendering scores. */
         const TTF::Font font;
 
@@ -42,21 +52,11 @@ namespace Game {
 
         /** Cached texture for keeping the "Score" text. */
         const SDL::Texture score_texture = renderer.create_texture_from_surface(
-            font.render_text_blended("Score:", {255, 255, 255, 255}));
+            font.render_text_blended("Score: 0", {255, 255, 255, 255}));
 
         /** Cached texture for keeping the "Press Spacebar to Continue" text. */
         const SDL::Texture restart_texture =
             renderer.create_texture_from_surface(font.render_text_blended(
                 "Game over! Press [Space] to restart...", {255, 255, 255, 255}));
-
-        /** State manager for snake logic. */
-        Snake snake;
-        /** Apple location. */
-        /** Initial state of the game is the play screen. */
-        bool is_playing = true;
-        /** Checks whether the game is pending a new game. */
-        bool pending_reset = false;
-        /** Game starts with no score. */
-        uint16_t score = 0;
     };
 } // namespace Game

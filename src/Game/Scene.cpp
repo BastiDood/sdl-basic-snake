@@ -1,5 +1,6 @@
 #include "Scene.hpp"
 #include <SDL_keycode.h>
+#include <algorithm>
 
 namespace Game {
     Scene::Scene(const std::string_view font_path) : font{font_path, FONT_SIZE} {}
@@ -39,7 +40,16 @@ namespace Game {
         renderer.clear();
 
         if (is_playing) {
-            snake.draw(renderer);
+            // Draw snake game
+            const auto [width, height] = renderer.get_output_size();
+            const auto side = std::min(width, height);
+            renderer.set_viewport({{0, 0, side, side}});
+            snake.draw(renderer, width, height);
+
+            // Draw the current score
+            renderer.set_viewport({{0, side, width, height - side}});
+            renderer.render_copy(score_texture, {}, {});
+            renderer.set_viewport({});
         } else {
             const SDL_Point dimensions = restart_texture.get_dimensions();
             renderer.render_copy(restart_texture, {}, {{0, 0, dimensions.x, dimensions.y}});

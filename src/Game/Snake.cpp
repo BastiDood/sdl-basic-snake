@@ -22,12 +22,14 @@ namespace Game {
         for (auto & [position, velocity] : nodes) {
             std::swap(current_dir, velocity);
             switch (velocity) {
-                case Direction::UP: position.y = position.y > 0 ? position.y - 1 : BOUNDS.y; break;
+                case Direction::UP:
+                    position.y = position.y > 0 ? position.y - 1 : BOUNDS.y - 1;
+                    break;
                 case Direction::DOWN:
                     position.y = position.y < BOUNDS.y ? position.y + 1 : 0;
                     break;
                 case Direction::LEFT:
-                    position.x = position.x > 0 ? position.x - 1 : BOUNDS.x;
+                    position.x = position.x > 0 ? position.x - 1 : BOUNDS.x - 1;
                     break;
                 case Direction::RIGHT:
                     position.x = position.x < BOUNDS.x ? position.x + 1 : 0;
@@ -43,9 +45,8 @@ namespace Game {
                }) == end;
     }
 
-    void Snake::draw(SDL::Renderer const & renderer) const {
+    void Snake::draw(SDL::Renderer const & renderer, const int width, const int height) const {
         renderer.set_render_draw_color(0, 255, 0, 255);
-        const auto [width, height] = renderer.get_output_size();
         const SDL_Point tile_size{width / BOUNDS.x, height / BOUNDS.y};
         for (auto const & [position, _] : nodes)
             renderer.fill_rect(
