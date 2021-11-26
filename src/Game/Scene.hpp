@@ -53,6 +53,8 @@ namespace Game {
         Snake snake;
         /** Initial state of the game is the play screen. */
         bool is_playing = true;
+        /** Checks whether the game is pending a new game. */
+        bool pending_reset = true;
         /** Game starts with no score. */
         uint16_t score = 0;
     };

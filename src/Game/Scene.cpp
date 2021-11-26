@@ -6,26 +6,33 @@ namespace Game {
         : font{font_path, FONT_SIZE}, snake{renderer.get_viewport_dimensions()} {}
 
     void Scene::on_input(const SDL_Keycode input) {
-        switch (input) {
-            case SDLK_UP:
-            case SDLK_w: return snake.set_current_direction(Game::Snake::Direction::UP);
-            case SDLK_DOWN:
-            case SDLK_s: return snake.set_current_direction(Game::Snake::Direction::DOWN);
-            case SDLK_LEFT:
-            case SDLK_a: return snake.set_current_direction(Game::Snake::Direction::LEFT);
-            case SDLK_RIGHT:
-            case SDLK_d: return snake.set_current_direction(Game::Snake::Direction::RIGHT);
-            case SDLK_SPACE: break;
+        // Respond to input
+        if (is_playing)
+            switch (input) {
+                case SDLK_UP:
+                case SDLK_w: return snake.set_current_direction(Game::Snake::Direction::UP);
+                case SDLK_DOWN:
+                case SDLK_s: return snake.set_current_direction(Game::Snake::Direction::DOWN);
+                case SDLK_LEFT:
+                case SDLK_a: return snake.set_current_direction(Game::Snake::Direction::LEFT);
+                case SDLK_RIGHT:
+                case SDLK_d: return snake.set_current_direction(Game::Snake::Direction::RIGHT);
+            }
+
+        // Reset the game otherwise
+        if (pending_reset) {
+            is_playing = true;
+            pending_reset = false;
+            score = 0;
+            snake.reset();
         }
     }
 
     void Scene::tick() {
-        if (!is_playing)
-            return;
-
-        is_playing = snake.tick();
-        if (!is_playing)
-            snake.reset();
+        if (is_playing) {
+            is_playing = snake.tick();
+            pending_reset = !is_playing;
+        }
     }
 
     void Scene::draw() const {
