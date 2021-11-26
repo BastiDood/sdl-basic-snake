@@ -1,12 +1,13 @@
+#include "../SDL/Renderer.hpp"
 #include <SDL_rect.h>
 #include <deque>
 
 namespace Game {
     class Snake {
+        static constexpr SDL_Point BOUNDS{10, 10};
+
       public:
         enum class Direction { UP, DOWN, LEFT, RIGHT };
-
-        Snake(SDL_Point bounds);
 
         /**
          * Controls the upcoming direction in the next tick.
@@ -16,6 +17,8 @@ namespace Game {
         void set_current_direction(Direction dir);
         /** Returns `true` if tick was successful. Otherwise, the game is over. */
         bool tick();
+        /** Render the snake on the screen. */
+        void draw(SDL::Renderer const & renderer) const;
         /** Resets the snake's state. */
         void reset();
 
@@ -28,8 +31,6 @@ namespace Game {
             Direction direction = Direction::RIGHT;
         };
 
-        /** Grid-space coordinate bounds of the simulation. */
-        const SDL_Point bounds;
         /** The upcoming velocity of the snake head. By default, it goes right. */
         Direction direction = Direction::RIGHT;
         /** Velocity and grid position of each snake node. */

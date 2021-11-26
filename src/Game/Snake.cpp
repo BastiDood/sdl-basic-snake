@@ -2,8 +2,6 @@
 #include <algorithm>
 
 namespace Game {
-    Snake::Snake(const SDL_Point game_bounds) : bounds{game_bounds} {}
-
     bool Snake::is_opposite_direction(const Direction dir) const {
         switch (direction) {
             case Direction::UP: return dir == Direction::DOWN;
@@ -24,15 +22,15 @@ namespace Game {
         for (auto & [position, velocity] : nodes) {
             std::swap(current_dir, velocity);
             switch (velocity) {
-                case Direction::UP: position.y = position.y > 0 ? position.y - 1 : bounds.y; break;
+                case Direction::UP: position.y = position.y > 0 ? position.y - 1 : BOUNDS.y; break;
                 case Direction::DOWN:
-                    position.y = position.y < bounds.y ? position.y + 1 : 0;
+                    position.y = position.y < BOUNDS.y ? position.y + 1 : 0;
                     break;
                 case Direction::LEFT:
-                    position.x = position.x > 0 ? position.x - 1 : bounds.x;
+                    position.x = position.x > 0 ? position.x - 1 : BOUNDS.x;
                     break;
                 case Direction::RIGHT:
-                    position.x = position.x < bounds.x ? position.x + 1 : 0;
+                    position.x = position.x < BOUNDS.x ? position.x + 1 : 0;
                     break;
             }
         }
@@ -43,6 +41,15 @@ namespace Game {
         return std::find_if(nodes.cbegin() + 1, end, [&head](auto const & node) {
                    return node.position.x == head.x && node.position.y == head.y;
                }) == end;
+    }
+
+    void Snake::draw(SDL::Renderer const & renderer) const {
+        renderer.set_render_draw_color(0, 255, 0, 255);
+        const auto [width, height] = renderer.get_viewport_dimensions();
+        const SDL_Point tile_size{width / BOUNDS.x, height / BOUNDS.y};
+        for (auto const & [position, _] : nodes)
+            renderer.fill_rect(
+                {position.x * tile_size.x, position.y * tile_size.y, tile_size.x, tile_size.y});
     }
 
     void Snake::reset() {

@@ -2,8 +2,7 @@
 #include <SDL_keycode.h>
 
 namespace Game {
-    Scene::Scene(const std::string_view font_path)
-        : font{font_path, FONT_SIZE}, snake{renderer.get_viewport_dimensions()} {}
+    Scene::Scene(const std::string_view font_path) : font{font_path, FONT_SIZE} {}
 
     void Scene::on_input(const SDL_Keycode input) {
         // Respond to input
@@ -36,14 +35,18 @@ namespace Game {
     }
 
     void Scene::draw() const {
+        renderer.set_render_draw_color(0, 0, 0, 255);
+        renderer.clear();
+
         if (!is_playing) {
             const SDL_Point dimensions = restart_texture.get_dimensions();
-            renderer.clear();
             renderer.render_copy(restart_texture, {}, {{0, 0, dimensions.x, dimensions.y}});
             renderer.present();
             return;
         }
 
         // TODO: Render the actual snake state
+        snake.draw(renderer);
+        renderer.present();
     }
 } // namespace Game
