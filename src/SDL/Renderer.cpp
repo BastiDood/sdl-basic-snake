@@ -1,14 +1,16 @@
 #include "Renderer.hpp"
+#include <SDL_render.h>
 #include <cassert>
 
 namespace SDL {
     Renderer::Renderer(SDL_Renderer * const self)
         : self{Renderer::Pointer{self, &SDL_DestroyRenderer}} {}
 
-    SDL_Point Renderer::get_viewport_dimensions() const {
-        SDL_Rect rect;
-        SDL_RenderGetViewport(self.get(), &rect);
-        return {rect.w, rect.h};
+    SDL_Point Renderer::get_output_size() const {
+        int width, height;
+        const int result = SDL_GetRendererOutputSize(self.get(), &width, &height);
+        assert(result == 0);
+        return {width, height};
     }
 
     Texture Renderer::create_texture_from_surface(Surface const & surface) const {

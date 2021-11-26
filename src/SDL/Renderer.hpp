@@ -14,7 +14,7 @@ namespace SDL {
       public:
         Renderer(SDL_Renderer * self);
 
-        SDL_Point get_viewport_dimensions() const;
+        SDL_Point get_output_size() const;
 
         Texture create_texture_from_surface(Surface const & surface) const;
 

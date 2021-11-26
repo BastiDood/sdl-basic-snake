@@ -45,7 +45,7 @@ namespace Game {
 
     void Snake::draw(SDL::Renderer const & renderer) const {
         renderer.set_render_draw_color(0, 255, 0, 255);
-        const auto [width, height] = renderer.get_viewport_dimensions();
+        const auto [width, height] = renderer.get_output_size();
         const SDL_Point tile_size{width / BOUNDS.x, height / BOUNDS.y};
         for (auto const & [position, _] : nodes)
             renderer.fill_rect(
