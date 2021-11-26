@@ -55,7 +55,7 @@ namespace Game {
         /** Initial state of the game is the play screen. */
         bool is_playing = true;
         /** Checks whether the game is pending a new game. */
-        bool pending_reset = true;
+        bool pending_reset = false;
         /** Game starts with no score. */
         uint16_t score = 0;
     };

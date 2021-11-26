@@ -38,13 +38,11 @@ namespace Game {
         renderer.set_render_draw_color(0, 0, 0, 255);
         renderer.clear();
 
-        if (is_playing)
+        if (is_playing) {
             snake.draw(renderer);
-        else {
+        } else {
             const SDL_Point dimensions = restart_texture.get_dimensions();
             renderer.render_copy(restart_texture, {}, {{0, 0, dimensions.x, dimensions.y}});
-            renderer.present();
-            return;
         }
 
         renderer.present();

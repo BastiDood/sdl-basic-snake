@@ -34,6 +34,6 @@ namespace Game {
         /** The upcoming velocity of the snake head. By default, it goes right. */
         Direction direction = Direction::RIGHT;
         /** Velocity and grid position of each snake node. */
-        std::deque<Node> nodes{1};
+        std::deque<Node> nodes{{{2, 0}}, {{1, 0}}, {}};
     };
 } // namespace Game
