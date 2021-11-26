@@ -16,7 +16,10 @@ int main(const int argc, char ** const argv) {
     SDL::Context _system_guard;
     TTF::Context _ttf_guard;
 
+    // Initialize game
     Game::Scene scene{argv[1]};
+
+    // Initialize event loop
     constexpr uint64_t RENDER_INTERVAL = 1000;
     auto next_render = static_cast<int64_t>(SDL_GetTicks() + RENDER_INTERVAL);
     while (true) {

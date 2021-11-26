@@ -9,13 +9,13 @@ namespace Game {
         if (is_playing)
             switch (input) {
                 case SDLK_UP:
-                case SDLK_w: return snake.set_current_direction(Game::Snake::Direction::UP);
+                case SDLK_w: return snake.set_current_direction(Snake::Direction::UP);
                 case SDLK_DOWN:
-                case SDLK_s: return snake.set_current_direction(Game::Snake::Direction::DOWN);
+                case SDLK_s: return snake.set_current_direction(Snake::Direction::DOWN);
                 case SDLK_LEFT:
-                case SDLK_a: return snake.set_current_direction(Game::Snake::Direction::LEFT);
+                case SDLK_a: return snake.set_current_direction(Snake::Direction::LEFT);
                 case SDLK_RIGHT:
-                case SDLK_d: return snake.set_current_direction(Game::Snake::Direction::RIGHT);
+                case SDLK_d: return snake.set_current_direction(Snake::Direction::RIGHT);
             }
 
         // Reset the game otherwise
@@ -38,15 +38,15 @@ namespace Game {
         renderer.set_render_draw_color(0, 0, 0, 255);
         renderer.clear();
 
-        if (!is_playing) {
+        if (is_playing)
+            snake.draw(renderer);
+        else {
             const SDL_Point dimensions = restart_texture.get_dimensions();
             renderer.render_copy(restart_texture, {}, {{0, 0, dimensions.x, dimensions.y}});
             renderer.present();
             return;
         }
 
-        // TODO: Render the actual snake state
-        snake.draw(renderer);
         renderer.present();
     }
 } // namespace Game
