@@ -38,16 +38,16 @@ namespace Game {
         const SDL::Window window{"Hello World", WINDOW_WIDTH, WINDOW_HEIGHT};
 
         /** Underlying renderer from SDL. */
-        const SDL::Renderer renderer{window.create_renderer()};
+        const SDL::Renderer renderer = window.create_renderer();
 
         /** Cached texture for keeping the "Score" text. */
-        const SDL::Texture score_texture{renderer.create_texture_from_surface(
-            font.render_text_blended("Score:", {255, 255, 255, 255}))};
+        const SDL::Texture score_texture = renderer.create_texture_from_surface(
+            font.render_text_blended("Score:", {255, 255, 255, 255}));
 
         /** Cached texture for keeping the "Press Spacebar to Continue" text. */
-        const SDL::Texture restart_texture{
+        const SDL::Texture restart_texture =
             renderer.create_texture_from_surface(font.render_text_blended(
-                "Game over! Press [Space] to restart...", {255, 255, 255, 255}))};
+                "Game over! Press [Space] to restart...", {255, 255, 255, 255}));
 
         /** State manager for snake logic. */
         Snake snake;
