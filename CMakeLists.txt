@@ -26,7 +26,7 @@ if(WIN32)
 endif()
 
 # C++ Configuration
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 target_compile_options(
     ${PROJECT_NAME}
     PRIVATE
