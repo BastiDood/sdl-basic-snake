@@ -13,6 +13,7 @@ add_executable(
     src/TTF/Context.cpp
     src/TTF/Font.cpp
     src/Game/Scene.cpp
+    src/Game/Snake.cpp
 )
 
 # Dependency Resolution

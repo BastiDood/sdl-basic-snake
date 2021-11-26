@@ -1,9 +1,14 @@
 #pragma once
+
 #include "../SDL/Renderer.hpp"
 #include "../SDL/Window.hpp"
 #include "../TTF/Font.hpp"
+
+#include "Snake.hpp"
+
 #include <SDL_events.h>
 #include <SDL_rect.h>
+
 #include <cstdint>
 #include <string_view>
 
@@ -13,7 +18,6 @@ namespace Game {
     constexpr int FONT_SIZE = 16;
 
     class Scene {
-
       public:
         Scene(std::string_view font_path);
 
@@ -28,26 +32,28 @@ namespace Game {
 
       private:
         /** Font to be used for rendering scores. */
-        const TTF::Font m_Font;
+        const TTF::Font font;
 
         /** Handle to the current game window. */
-        const SDL::Window m_Window{"Hello World", WINDOW_WIDTH, WINDOW_HEIGHT};
+        const SDL::Window window{"Hello World", WINDOW_WIDTH, WINDOW_HEIGHT};
 
         /** Underlying renderer from SDL. */
-        const SDL::Renderer m_Renderer{m_Window.create_renderer()};
+        const SDL::Renderer renderer{window.create_renderer()};
 
         /** Cached texture for keeping the "Score" text. */
-        const SDL::Texture m_ScoreTexture{m_Renderer.create_texture_from_surface(
-            m_Font.render_text_blended("Score:", {255, 255, 255, 255}))};
+        const SDL::Texture score_texture{renderer.create_texture_from_surface(
+            font.render_text_blended("Score:", {UINT8_MAX, 255, 255, 255}))};
 
         /** Cached texture for keeping the "Press Spacebar to Continue" text. */
-        const SDL::Texture m_RestartTexture{
-            m_Renderer.create_texture_from_surface(m_Font.render_text_blended(
+        const SDL::Texture restart_texture{
+            renderer.create_texture_from_surface(font.render_text_blended(
                 "Game over! Press [Space] to restart...", {255, 255, 255, 255}))};
 
+        /** State manager for snake logic. */
+        Snake snake;
         /** Initial state of the game is the play screen. */
-        bool m_IsPlaying = true;
+        bool is_playing = true;
         /** Game starts with no score. */
-        uint16_t m_Score = 0;
+        uint16_t score = 0;
     };
 } // namespace Game

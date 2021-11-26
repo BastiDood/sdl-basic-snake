@@ -2,31 +2,32 @@
 #include <SDL_keycode.h>
 
 namespace Game {
-    Scene::Scene(const std::string_view font_path) : m_Font{font_path, FONT_SIZE} {}
+    Scene::Scene(const std::string_view font_path)
+        : font{font_path, FONT_SIZE}, snake{renderer.get_viewport_dimensions()} {}
 
     void Scene::on_input(const SDL_Keycode input) {
         switch (input) {
             case SDLK_UP:
-            case SDLK_w: break;
+            case SDLK_w: return snake.set_current_direction(Game::Snake::Direction::UP);
             case SDLK_DOWN:
-            case SDLK_s: break;
+            case SDLK_s: return snake.set_current_direction(Game::Snake::Direction::DOWN);
             case SDLK_LEFT:
-            case SDLK_a: break;
+            case SDLK_a: return snake.set_current_direction(Game::Snake::Direction::LEFT);
             case SDLK_RIGHT:
-            case SDLK_d: break;
+            case SDLK_d: return snake.set_current_direction(Game::Snake::Direction::RIGHT);
             case SDLK_SPACE: break;
         }
     }
 
     void Scene::tick() {
-        if (m_IsPlaying)
-            return;
+        if (is_playing)
+            snake.tick();
     }
 
     void Scene::draw() const {
-        const SDL_Point dimensions = m_RestartTexture.get_dimensions();
-        m_Renderer.clear();
-        m_Renderer.render_copy(m_RestartTexture, {}, SDL_Rect{0, 0, dimensions.x, dimensions.y});
-        m_Renderer.present();
+        const SDL_Point dimensions = restart_texture.get_dimensions();
+        renderer.clear();
+        renderer.render_copy(restart_texture, {}, SDL_Rect{0, 0, dimensions.x, dimensions.y});
+        renderer.present();
     }
 } // namespace Game
