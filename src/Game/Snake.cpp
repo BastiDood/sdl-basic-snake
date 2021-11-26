@@ -37,8 +37,8 @@ namespace Game {
 
         // Check for any collisions with the head
         const auto & head = nodes.front().position;
-        const auto end = nodes.cend();
-        return std::find_if(nodes.cbegin() + 1, end, [&head](auto const & node) {
+        const auto end = nodes.crend();
+        return std::find_if(nodes.crbegin() + 1, end, [&head](auto const & node) {
                    return node.position.x == head.x && node.position.y == head.y;
                }) == end;
     }
