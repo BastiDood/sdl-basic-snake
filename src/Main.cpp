@@ -5,12 +5,12 @@
 #include <SDL_events.h>
 #include <SDL_timer.h>
 
-#include <algorithm>
-#include <cassert>
 #include <cstdint>
+#include <stdexcept>
 
 int main(const int argc, char ** const argv) {
-    assert(argc > 1);
+    if (argc <= 1)
+        throw std::length_error{"missing font location"};
 
     // Resource Acquisition is Initialization!
     // RAII Guard for the full SDL context

@@ -1,5 +1,5 @@
 #include "Texture.hpp"
-#include <cassert>
+#include <stdexcept>
 
 namespace SDL {
     Texture::Texture(SDL_Texture * const self)
@@ -9,7 +9,8 @@ namespace SDL {
         SDL_Point dimensions;
         const int result =
             SDL_QueryTexture(self.get(), nullptr, nullptr, &dimensions.x, &dimensions.y);
-        assert(result == 0);
+        if (result != 0)
+            throw std::runtime_error{"cannot get texture dimensions"};
         return dimensions;
     }
 } // namespace SDL
