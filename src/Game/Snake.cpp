@@ -56,8 +56,8 @@ namespace Game {
     void Snake::reset() {
         direction = Direction::RIGHT;
         nodes.clear();
-        nodes.push_back({});
-        nodes.push_back({{1, 0}});
         nodes.push_back({{2, 0}});
+        nodes.push_back({{1, 0}});
+        nodes.push_back({});
     }
 } // namespace Game

@@ -19,6 +19,10 @@ namespace Game {
                 case SDLK_d: return snake.set_current_direction(Snake::Direction::RIGHT);
             }
 
+        // Ignore non-space SDL_Key
+        if (input != SDLK_SPACE)
+            return;
+
         // Reset the game otherwise
         if (pending_reset) {
             is_playing = true;
