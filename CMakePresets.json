@@ -1,0 +1,16 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 19
+    },
+    "configurePresets": [
+        {
+            "name": "ninja",
+            "generator": "Ninja Multi-Config",
+            "binaryDir": "build",
+            "warnings": { "dev": false },
+            "cacheVariables": { "CMAKE_EXPORT_COMPILE_COMMANDS": true }
+        }
+    ]
+}
