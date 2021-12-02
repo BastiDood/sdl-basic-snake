@@ -1,8 +1,8 @@
 #pragma once
-#include <SDL_rect.h>
-#include <SDL_render.h>
 #include <cstdint>
 #include <memory>
+#include <SDL_rect.h>
+#include <SDL_render.h>
 
 namespace SDL {
     class Texture {

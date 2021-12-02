@@ -2,15 +2,13 @@
 #include "SDL/Context.hpp"
 #include "TTF/Context.hpp"
 
+#include <cstdint>
 #include <SDL_events.h>
 #include <SDL_timer.h>
-
-#include <cstdint>
 #include <stdexcept>
 
 int main(const int argc, char ** const argv) {
-    if (argc <= 1)
-        throw std::length_error{"missing font location"};
+    if (argc <= 1) throw std::length_error{"missing font location"};
 
     // Resource Acquisition is Initialization!
     // RAII Guard for the full SDL context
@@ -31,8 +29,7 @@ int main(const int argc, char ** const argv) {
         SDL_Event event;
         int64_t timeout = TICK_TIME;
         while (SDL_WaitEventTimeout(&event, static_cast<int>(timeout)) != 0) {
-            if (event.type == SDL_QUIT)
-                return 0;
+            if (event.type == SDL_QUIT) return 0;
             if (event.type == SDL_KEYDOWN && event.key.repeat == 0)
                 scene.on_input(event.key.keysym.sym);
             timeout = std::max(0LL, next_render - SDL_GetTicks());

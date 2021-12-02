@@ -1,7 +1,8 @@
 #pragma once
 #include "../SDL/Surface.hpp"
-#include <SDL_ttf.h>
+
 #include <memory>
+#include <SDL_ttf.h>
 #include <string_view>
 
 namespace TTF {

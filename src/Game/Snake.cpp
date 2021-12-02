@@ -1,4 +1,5 @@
 #include "Snake.hpp"
+
 #include <algorithm>
 
 namespace Game {
@@ -12,8 +13,7 @@ namespace Game {
     }
 
     void Snake::set_current_direction(const Direction dir) {
-        if (!is_opposite_direction(dir))
-            direction = dir;
+        if (!is_opposite_direction(dir)) direction = dir;
     }
 
     bool Snake::tick() {

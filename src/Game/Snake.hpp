@@ -1,6 +1,7 @@
 #include "../SDL/Renderer.hpp"
-#include <SDL_rect.h>
+
 #include <deque>
+#include <SDL_rect.h>
 
 namespace Game {
     class Snake {

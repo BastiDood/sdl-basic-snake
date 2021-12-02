@@ -1,7 +1,8 @@
 #pragma once
 #include "Renderer.hpp"
-#include <SDL_video.h>
+
 #include <memory>
+#include <SDL_video.h>
 #include <string_view>
 
 namespace SDL {

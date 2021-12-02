@@ -3,13 +3,11 @@
 #include "../SDL/Renderer.hpp"
 #include "../SDL/Window.hpp"
 #include "../TTF/Font.hpp"
-
 #include "Snake.hpp"
 
+#include <cstdint>
 #include <SDL_events.h>
 #include <SDL_rect.h>
-
-#include <cstdint>
 #include <string_view>
 
 namespace Game {

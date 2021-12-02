@@ -1,14 +1,15 @@
 #include "Scene.hpp"
-#include <SDL_keycode.h>
+
 #include <algorithm>
+#include <SDL_keycode.h>
 
 namespace Game {
-    Scene::Scene(const std::string_view font_path) : font{font_path, FONT_SIZE} {}
+    Scene::Scene(const std::string_view font_path)
+        : font{font_path, FONT_SIZE} { }
 
     void Scene::on_input(const SDL_Keycode input) {
         // Respond to input
-        if (is_playing)
-            switch (input) {
+        if (is_playing) switch (input) {
                 case SDLK_UP:
                 case SDLK_w: return snake.set_current_direction(Snake::Direction::UP);
                 case SDLK_DOWN:
@@ -20,8 +21,7 @@ namespace Game {
             }
 
         // Ignore non-space SDL_Key
-        if (input != SDLK_SPACE)
-            return;
+        if (input != SDLK_SPACE) return;
 
         // Reset the game otherwise
         if (pending_reset) {

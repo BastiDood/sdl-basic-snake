@@ -1,6 +1,6 @@
 #pragma once
-#include <SDL_surface.h>
 #include <memory>
+#include <SDL_surface.h>
 
 namespace TTF {
     class Font;

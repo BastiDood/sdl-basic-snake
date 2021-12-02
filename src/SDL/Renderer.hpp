@@ -1,11 +1,12 @@
 #pragma once
 #include "Surface.hpp"
 #include "Texture.hpp"
-#include <SDL_rect.h>
-#include <SDL_render.h>
+
 #include <cstdint>
 #include <memory>
 #include <optional>
+#include <SDL_rect.h>
+#include <SDL_render.h>
 
 namespace SDL {
     class Renderer {
