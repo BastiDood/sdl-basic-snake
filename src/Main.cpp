@@ -7,7 +7,7 @@
 #include <SDL_timer.h>
 #include <stdexcept>
 
-int main(const int argc, char ** const argv) {
+int SDL_main(const int argc, char ** const argv) {
     if (argc <= 1) throw std::length_error{"missing font location"};
 
     // Resource Acquisition is Initialization!
