@@ -1,10 +1,22 @@
+AlignOperands: AlignAfterOperator
+AllowShortBlocksOnASingleLine: Always
 AllowShortCaseLabelsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortLoopsOnASingleLine: true
 BasedOnStyle: LLVM
 BreakBeforeTernaryOperators: true
+BreakConstructorInitializers: BeforeComma
+BreakInheritanceList: BeforeComma
 ColumnLimit: 100
+IncludeBlocks: Regroup
 IndentCaseLabels: true
 IndentWidth: 4
 NamespaceIndentation: All
+# PackConstructorInitializers: CurrentLine
 PointerAlignment: Middle
+# QualifierAlignment: Right
+SortIncludes: CaseInsensitive
+SortUsingDeclarations: true
+SpaceInEmptyBlock: true
 SpacesInContainerLiterals: true
 TabWidth: 4
