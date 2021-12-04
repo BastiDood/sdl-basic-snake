@@ -10,7 +10,7 @@ namespace SDL {
         SDL_Point dimensions;
         const int result =
             SDL_QueryTexture(self.get(), nullptr, nullptr, &dimensions.x, &dimensions.y);
-        if (result != 0) throw std::runtime_error{"cannot get texture dimensions"};
+        if (result != 0) throw std::runtime_error{SDL_GetError()};
         return dimensions;
     }
 } // namespace SDL
