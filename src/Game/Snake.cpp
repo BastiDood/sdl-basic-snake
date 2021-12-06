@@ -12,10 +12,6 @@ namespace Game {
         }
     }
 
-    constexpr void Snake::set_current_direction(const Direction dir) {
-        if (!is_opposite_direction(dir)) direction = dir;
-    }
-
     bool Snake::tick() {
         // Propagate new velocities and positions
         auto current_dir = direction;
@@ -53,11 +49,4 @@ namespace Game {
                 {position.x * tile_size.x, position.y * tile_size.y, tile_size.x, tile_size.y});
     }
 
-    constexpr void Snake::reset() {
-        direction = Direction::RIGHT;
-        nodes.clear();
-        nodes.push_back({{2, 0}});
-        nodes.push_back({{1, 0}});
-        nodes.push_back({});
-    }
 } // namespace Game
