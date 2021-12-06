@@ -12,7 +12,7 @@ namespace Game {
         }
     }
 
-    void Snake::set_current_direction(const Direction dir) {
+    constexpr void Snake::set_current_direction(const Direction dir) {
         if (!is_opposite_direction(dir)) direction = dir;
     }
 
@@ -53,7 +53,7 @@ namespace Game {
                 {position.x * tile_size.x, position.y * tile_size.y, tile_size.x, tile_size.y});
     }
 
-    void Snake::reset() {
+    constexpr void Snake::reset() {
         direction = Direction::RIGHT;
         nodes.clear();
         nodes.push_back({{2, 0}});

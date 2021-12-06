@@ -15,13 +15,13 @@ namespace Game {
          * Ignore invalid inputs, such as when trying to send
          * the snake into a 180-degree turn.
          */
-        void set_current_direction(Direction dir);
+        constexpr void set_current_direction(Direction dir);
         /** Returns `true` if tick was successful. Otherwise, the game is over. */
         bool tick();
         /** Render the snake on the screen. */
         void draw(SDL::Renderer const & renderer, int width, int height) const;
         /** Resets the snake's state. */
-        void reset();
+        constexpr void reset();
 
       private:
         /** Determines whether a given direction cancels out the current direction. */
