@@ -3,15 +3,6 @@
 #include <algorithm>
 
 namespace Game {
-    bool Snake::is_opposite_direction(const Direction dir) const {
-        switch (direction) {
-            case Direction::UP: return dir == Direction::DOWN;
-            case Direction::DOWN: return dir == Direction::UP;
-            case Direction::LEFT: return dir == Direction::RIGHT;
-            case Direction::RIGHT: return dir == Direction::LEFT;
-        }
-    }
-
     bool Snake::tick() {
         // Propagate new velocities and positions
         auto current_dir = direction;

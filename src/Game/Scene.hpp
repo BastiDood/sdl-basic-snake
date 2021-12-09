@@ -31,7 +31,6 @@ namespace Game {
       private:
         /** State manager for snake logic. */
         Snake snake;
-        /** Apple location. */
         /** Initial state of the game is the play screen. */
         bool is_playing = true;
         /** Checks whether the game is pending a new game. */

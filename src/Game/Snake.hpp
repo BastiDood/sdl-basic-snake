@@ -35,7 +35,14 @@ namespace Game {
 
       private:
         /** Determines whether a given direction cancels out the current direction. */
-        bool is_opposite_direction(Direction dir) const;
+        constexpr bool is_opposite_direction(const Direction dir) const {
+            switch (direction) {
+                case Direction::UP: return dir == Direction::DOWN;
+                case Direction::DOWN: return dir == Direction::UP;
+                case Direction::LEFT: return dir == Direction::RIGHT;
+                case Direction::RIGHT: return dir == Direction::LEFT;
+            }
+        }
 
         struct Node {
             SDL_Point position{0, 0};
