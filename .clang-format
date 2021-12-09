@@ -20,3 +20,4 @@ SortUsingDeclarations: true
 SpaceInEmptyBlock: true
 SpacesInContainerLiterals: true
 TabWidth: 4
+UseCRLF: false
