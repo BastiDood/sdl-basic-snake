@@ -15,12 +15,16 @@ namespace Game {
         switch (direction) {
             case Direction::UP:
                 if (--parent->y < 0) return false;
+                break;
             case Direction::DOWN:
                 if (++parent->y >= BOUNDS.y) return false;
+                break;
             case Direction::LEFT:
                 if (--parent->x < 0) return false;
+                break;
             case Direction::RIGHT:
                 if (++parent->x >= BOUNDS.x) return false;
+                break;
         }
 
         // Check if head will collide with any of the nodes
