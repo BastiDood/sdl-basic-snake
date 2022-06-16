@@ -4,8 +4,7 @@
 #include <SDL_keycode.h>
 
 namespace Game {
-    Scene::Scene(const std::string_view font_path)
-        : font{font_path, FONT_SIZE} { }
+    Scene::Scene(const std::string_view font_path) : font{font_path, FONT_SIZE} { }
 
     void Scene::on_input(const SDL_Keycode input) {
         // Respond to input

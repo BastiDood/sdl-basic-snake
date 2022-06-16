@@ -22,7 +22,7 @@ namespace Game {
         /** Returns `true` if tick was successful. Otherwise, the game is over. */
         bool tick();
         /** Render the snake on the screen. */
-        void draw(SDL::Renderer const & renderer, int width, int height) const;
+        void draw(const SDL::Renderer & renderer, int width, int height) const;
 
         /** Resets the snake's state. */
         constexpr void reset() {

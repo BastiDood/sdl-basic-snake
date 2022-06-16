@@ -12,7 +12,7 @@ namespace TTF {
       public:
         Font(std::string_view path, int ptsize);
 
-        SDL::Surface render_text_blended(std::string_view text, SDL_Color fg) const;
+        SDL::Surface render_text_blended(std::string_view text, SDL_Color color) const;
 
       private:
         Pointer self;

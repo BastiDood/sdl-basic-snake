@@ -12,9 +12,9 @@ IncludeBlocks: Regroup
 IndentCaseLabels: true
 IndentWidth: 4
 NamespaceIndentation: All
-# PackConstructorInitializers: CurrentLine
+PackConstructorInitializers: CurrentLine
 PointerAlignment: Middle
-# QualifierAlignment: Right
+QualifierAlignment: Left
 SortIncludes: CaseInsensitive
 SortUsingDeclarations: true
 SpaceInEmptyBlock: true

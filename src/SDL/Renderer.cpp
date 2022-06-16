@@ -13,19 +13,19 @@ namespace SDL {
         return {width, height};
     }
 
-    Texture Renderer::create_texture_from_surface(Surface const & surface) const {
+    Texture Renderer::create_texture_from_surface(const Surface & surface) const {
         auto * const texture = SDL_CreateTextureFromSurface(self.get(), surface.self.get());
         if (texture == nullptr) throw std::runtime_error{SDL_GetError()};
         return {texture};
     }
 
-    void Renderer::fill_rect(SDL_Rect const & rect) const {
+    void Renderer::fill_rect(const SDL_Rect & rect) const {
         const int result = SDL_RenderFillRect(self.get(), &rect);
         if (result != 0) throw std::runtime_error{SDL_GetError()};
     }
 
     void Renderer::set_viewport(const std::optional<SDL_Rect> & bounds) const {
-        auto const * const rect = bounds.has_value() ? &bounds.value() : nullptr;
+        const auto * const rect = bounds.has_value() ? &bounds.value() : nullptr;
         const int result = SDL_RenderSetViewport(self.get(), rect);
         if (result != 0) throw std::runtime_error{SDL_GetError()};
     }
@@ -36,11 +36,11 @@ namespace SDL {
         if (result != 0) throw std::runtime_error{SDL_GetError()};
     }
 
-    void Renderer::render_copy(SDL::Texture const & texture, std::optional<SDL_Rect> const & src,
-                               std::optional<SDL_Rect> const & dest) const {
-        auto const * const a = src.has_value() ? &src.value() : nullptr;
-        auto const * const b = dest.has_value() ? &dest.value() : nullptr;
-        const int result = SDL_RenderCopy(self.get(), texture.self.get(), a, b);
+    void Renderer::render_copy(const SDL::Texture & texture, const std::optional<SDL_Rect> & src,
+                               const std::optional<SDL_Rect> & dest) const {
+        const auto * const left = src.has_value() ? &src.value() : nullptr;
+        const auto * const right = dest.has_value() ? &dest.value() : nullptr;
+        const int result = SDL_RenderCopy(self.get(), texture.self.get(), left, right);
         if (result != 0) throw std::runtime_error{SDL_GetError()};
     }
 
