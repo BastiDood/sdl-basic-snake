@@ -41,4 +41,24 @@ namespace Game {
             renderer.fill_rect({x * tile_size.x, y * tile_size.y, tile_size.x, tile_size.y});
     }
 
+    bool Snake::is_opposite_direction(const Direction dir) const {
+        switch (direction) {
+            case Direction::UP: return dir == Direction::DOWN;
+            case Direction::DOWN: return dir == Direction::UP;
+            case Direction::LEFT: return dir == Direction::RIGHT;
+            case Direction::RIGHT: return dir == Direction::LEFT;
+        }
+    }
+
+    void Snake::reset() {
+        direction = Direction::RIGHT;
+        nodes.clear();
+        nodes.push_back({2, 0});
+        nodes.push_back({1, 0});
+        nodes.push_back({});
+    }
+
+    void Snake::set_current_direction(const Direction dir) {
+        if (!is_opposite_direction(dir)) direction = dir;
+    }
 } // namespace Game
