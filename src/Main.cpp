@@ -19,7 +19,7 @@ int SDL_main(const int argc, char ** const argv) {
     Game::Scene scene{argv[1]};
 
     // Initialize event loop
-    constexpr uint64_t TICK_TIME = 500;
+    constexpr uint64_t TICK_TIME = 250;
     auto next_render = static_cast<int64_t>(SDL_GetTicks() + TICK_TIME);
     while (true) {
         // Only re-draw graphics once `RENDER_INTERVAL` has passed

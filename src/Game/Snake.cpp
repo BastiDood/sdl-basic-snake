@@ -12,6 +12,7 @@ namespace Game {
         } while (parent != nodes.begin());
 
         // Check if the snake will collide with any of the walls
+        direction = is_input_opposite_dir() ? direction : input;
         switch (direction) {
             case Direction::UP:
                 if (--parent->y < 0) return false;
@@ -41,12 +42,12 @@ namespace Game {
             renderer.fill_rect({x * tile_size.x, y * tile_size.y, tile_size.x, tile_size.y});
     }
 
-    bool Snake::is_opposite_direction(const Direction dir) const {
+    bool Snake::is_input_opposite_dir() const {
         switch (direction) {
-            case Direction::UP: return dir == Direction::DOWN;
-            case Direction::DOWN: return dir == Direction::UP;
-            case Direction::LEFT: return dir == Direction::RIGHT;
-            case Direction::RIGHT: return dir == Direction::LEFT;
+            case Direction::UP: return input == Direction::DOWN;
+            case Direction::DOWN: return input == Direction::UP;
+            case Direction::LEFT: return input == Direction::RIGHT;
+            case Direction::RIGHT: return input == Direction::LEFT;
         }
     }
 
@@ -59,6 +60,6 @@ namespace Game {
     }
 
     void Snake::set_current_direction(const Direction dir) {
-        if (!is_opposite_direction(dir)) direction = dir;
+        input = dir;
     }
 } // namespace Game

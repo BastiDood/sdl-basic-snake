@@ -26,11 +26,13 @@ namespace Game {
         void reset();
 
       private:
-        /** Determines whether a given direction cancels out the current direction. */
-        bool is_opposite_direction(Direction dir) const;
+        /** Determines whether the user's latest input conflicts with the current velocity. */
+        bool is_input_opposite_dir() const;
 
-        /** The upcoming velocity of the snake head. By default, it goes right. */
+        /** The previous velocity of the snake head. By default, it goes right. */
         Direction direction = Direction::RIGHT;
+        /** The latest input of the user. */
+        Direction input = direction;
         /** Velocity and grid position of each snake node. */
         std::deque<SDL_Point> nodes{{2, 0}, {1, 0}, {}};
     };
