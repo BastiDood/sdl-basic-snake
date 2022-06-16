@@ -10,4 +10,5 @@ Diagnostics:
         Remove:
             - bugprone-easily-swappable-parameters
             - readability-braces-around-statements
+            - readability-magic-numbers
             - readability-isolate-declaration
