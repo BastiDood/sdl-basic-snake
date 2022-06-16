@@ -28,8 +28,8 @@ namespace Game {
         constexpr void reset() {
             direction = Direction::RIGHT;
             nodes.clear();
-            nodes.push_back({{2, 0}});
-            nodes.push_back({{1, 0}});
+            nodes.push_back({2, 0});
+            nodes.push_back({1, 0});
             nodes.push_back({});
         }
 
@@ -44,14 +44,9 @@ namespace Game {
             }
         }
 
-        struct Node {
-            SDL_Point position{0, 0};
-            Direction direction = Direction::RIGHT;
-        };
-
         /** The upcoming velocity of the snake head. By default, it goes right. */
         Direction direction = Direction::RIGHT;
         /** Velocity and grid position of each snake node. */
-        std::deque<Node> nodes{{{2, 0}}, {{1, 0}}, {}};
+        std::deque<SDL_Point> nodes{{2, 0}, {1, 0}, {}};
     };
 } // namespace Game

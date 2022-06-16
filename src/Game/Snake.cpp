@@ -4,40 +4,37 @@
 
 namespace Game {
     bool Snake::tick() {
-        // Propagate new velocities and positions
-        auto current_dir = direction;
-        for (auto & [position, velocity] : nodes) {
-            std::swap(current_dir, velocity);
-            switch (velocity) {
-                case Direction::UP:
-                    position.y = position.y > 0 ? position.y - 1 : BOUNDS.y - 1;
-                    break;
-                case Direction::DOWN:
-                    position.y = position.y < BOUNDS.y ? position.y + 1 : 0;
-                    break;
-                case Direction::LEFT:
-                    position.x = position.x > 0 ? position.x - 1 : BOUNDS.x - 1;
-                    break;
-                case Direction::RIGHT:
-                    position.x = position.x < BOUNDS.x ? position.x + 1 : 0;
-                    break;
-            }
+        auto parent = nodes.end() - 1;
+        do {
+            // Pull new position from the parent
+            const auto child = parent--;
+            *child = *parent;
+        } while (parent != nodes.begin());
+
+        // Check if the snake will collide with any of the walls
+        switch (direction) {
+            case Direction::UP:
+                if (--parent->y < 0) return false;
+            case Direction::DOWN:
+                if (++parent->y >= BOUNDS.y) return false;
+            case Direction::LEFT:
+                if (--parent->x < 0) return false;
+            case Direction::RIGHT:
+                if (++parent->x >= BOUNDS.x) return false;
         }
 
-        // Check for any collisions with the head
-        auto const & head = nodes.front().position;
-        const auto end = nodes.crend() - 1;
-        return std::find_if(nodes.crbegin(), end, [&head](auto const & node) {
-                   return node.position.x == head.x && node.position.y == head.y;
-               }) == end;
+        // Check if head will collide with any of the nodes
+        const auto & head = nodes.front();
+        return std::none_of(nodes.cbegin() + 1, nodes.cend(), [head](const SDL_Point & node) {
+            return head.x == node.x && head.y == node.y;
+        });
     }
 
-    void Snake::draw(SDL::Renderer const & renderer, const int width, const int height) const {
+    void Snake::draw(const SDL::Renderer & renderer, const int width, const int height) const {
         renderer.set_render_draw_color(0, 255, 0, 255);
         const SDL_Point tile_size{width / BOUNDS.x, height / BOUNDS.y};
-        for (auto const & [position, _] : nodes)
-            renderer.fill_rect(
-                {position.x * tile_size.x, position.y * tile_size.y, tile_size.x, tile_size.y});
+        for (const auto [x, y] : nodes)
+            renderer.fill_rect({x * tile_size.x, y * tile_size.y, tile_size.x, tile_size.y});
     }
 
 } // namespace Game
