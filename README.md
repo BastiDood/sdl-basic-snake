@@ -18,7 +18,7 @@ git clone --recursive https://github.com/Some-Dood/sdl-basic-snake.git
 # Configure the CMake project using the default Ninja + Clang stack
 SDL2_PATH=/path/to/sdl2/bin
 SDL2_TTF_PATH=/path/to/sdl2-ttf/bin
-cmake --preset=default
+cmake --preset=ninja
 
 # Build the project using the default preset
 cmake --build build --config Release
