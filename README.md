@@ -16,9 +16,7 @@ In order to make the most out of modern C++, the project also requires a compile
 git clone --recursive https://github.com/Some-Dood/sdl-basic-snake.git
 
 # Configure the CMake project using the default Ninja + Clang stack
-SDL2_PATH=/path/to/sdl2/bin
-SDL2_TTF_PATH=/path/to/sdl2-ttf/bin
-cmake --preset=ninja
+cmake --preset=ninja -DSDL2_PATH=/path/to/sdl2 -DSDL2_TTF_PATH=/path/to/sdl2_ttf
 
 # Build the project using the default preset
 cmake --build build --config Release
