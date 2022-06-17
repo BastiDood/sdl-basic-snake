@@ -8,6 +8,7 @@ Package managers (such as [vcpkg](https://vcpkg.io/en/index.html) and [Conan](ht
 
 * [SDL](https://github.com/libsdl-org/SDL)
 * [SDL_ttf](https://github.com/libsdl-org/SDL_ttf)
+* [PCG Random](https://github.com/imneme/pcg-cpp)
 
 In order to make the most out of modern C++, the project also requires a compiler that supports C++20 (at least partially). Older versions are not supported to keep the project configuration simple.
 
@@ -16,7 +17,7 @@ In order to make the most out of modern C++, the project also requires a compile
 git clone --recursive https://github.com/Some-Dood/sdl-basic-snake.git
 
 # Configure the CMake project using the default Ninja + Clang stack
-cmake --preset=ninja -DSDL2_PATH=/path/to/sdl2 -DSDL2_TTF_PATH=/path/to/sdl2_ttf
+cmake --preset=ninja -DSDL2_PATH=/path/to/sdl2 -DSDL2_TTF_PATH=/path/to/sdl2_ttf -DPCG_CPP_PATH=/path/to/pcg-cpp
 
 # Build the project using the default preset
 cmake --build build --config Release

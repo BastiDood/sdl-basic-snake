@@ -1,6 +1,8 @@
 #include "../SDL/Renderer.hpp"
 
 #include <deque>
+#include <optional>
+#include <utility>
 #include <SDL_rect.h>
 
 namespace Game {
@@ -8,7 +10,7 @@ namespace Game {
         static constexpr SDL_Point BOUNDS{10, 10};
 
       public:
-        enum class Direction { UP, DOWN, LEFT, RIGHT };
+        enum class Direction : std::uint8_t { UP, DOWN, LEFT, RIGHT };
 
         /**
          * Controls the upcoming direction in the next tick.
@@ -26,13 +28,26 @@ namespace Game {
         void reset();
 
       private:
+        using Coords = std::pair<std::size_t, std::size_t>;
+
+        /** Generates a random index from 0 to `max`. */
+        static std::ptrdiff_t gen_index(std::ptrdiff_t max);
+
         /** Determines whether the user's latest input conflicts with the current velocity. */
         bool is_input_opposite_dir() const;
+
+        /**
+         * Generate possible coordinates for the apple.
+         * May return `null` if there is no more space.
+         */
+        std::optional<std::pair<std::size_t, std::size_t>> gen_apple();
 
         /** The previous velocity of the snake head. By default, it goes right. */
         Direction direction = Direction::RIGHT;
         /** The latest input of the user. */
         Direction input = direction;
+        /** Current location of the apple. */
+        Coords apple{gen_apple().value()};
         /** Velocity and grid position of each snake node. */
         std::deque<SDL_Point> nodes{{2, 0}, {1, 0}, {}};
     };

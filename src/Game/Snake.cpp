@@ -1,8 +1,52 @@
 #include "Snake.hpp"
 
 #include <algorithm>
+#include <array>
+#include <functional>
+#include <random>
+#include <pcg_random.hpp>
 
 namespace Game {
+    std::ptrdiff_t Snake::gen_index(const std::ptrdiff_t max) {
+        static pcg32 rng{pcg_extras::seed_seq_from<std::random_device>{}};
+        const std::uniform_int_distribution<std::ptrdiff_t> dist{0, max};
+        return dist(rng);
+    }
+
+    std::optional<Snake::Coords> Snake::gen_apple() {
+        static constexpr auto WIDTH = static_cast<std::ptrdiff_t>(BOUNDS.x);
+        static constexpr auto HEIGHT = static_cast<std::ptrdiff_t>(BOUNDS.y);
+        static constexpr auto SIZE = WIDTH * HEIGHT;
+
+        // Create a grid for all occupied cells
+        std::array<bool, SIZE> grid;
+        for (const auto & [x, y] : nodes) {
+            const auto col = static_cast<std::size_t>(x);
+            const auto row = static_cast<std::size_t>(y);
+            grid[row * WIDTH + col] = true;
+        }
+
+        const auto rand = gen_index(SIZE - 1);
+        const auto mid = grid.cbegin() + rand;
+
+        // Find first empty cell from `mid` to the end
+        const auto right_candidate = std::find_if_not(mid, grid.cend(), std::identity{});
+        if (right_candidate != grid.cend()) {
+            const auto index = right_candidate - grid.cbegin();
+            return std::make_pair(index % WIDTH, index / WIDTH);
+        }
+
+        // Otherwise find first empty cell from start to `mid`
+        const auto left_candidate = std::find_if_not(grid.cbegin(), mid, std::identity{});
+        if (left_candidate != mid) {
+            const auto index = left_candidate - grid.cbegin();
+            return std::make_pair(index % WIDTH, index / WIDTH);
+        }
+
+        // There are no more available cells
+        return std::nullopt;
+    }
+
     bool Snake::tick() {
         auto parent = nodes.end() - 1;
         do {
@@ -59,7 +103,5 @@ namespace Game {
         nodes.push_back({});
     }
 
-    void Snake::set_current_direction(const Direction dir) {
-        input = dir;
-    }
+    void Snake::set_current_direction(const Direction dir) { input = dir; }
 } // namespace Game

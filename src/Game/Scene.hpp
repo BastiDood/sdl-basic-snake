@@ -11,9 +11,9 @@
 #include <string_view>
 
 namespace Game {
-    constexpr int WINDOW_WIDTH = 480;
-    constexpr int WINDOW_HEIGHT = 640;
-    constexpr int FONT_SIZE = 40;
+    static constexpr int WINDOW_WIDTH = 480;
+    static constexpr int WINDOW_HEIGHT = 640;
+    static constexpr int FONT_SIZE = 40;
 
     class Scene {
       public:

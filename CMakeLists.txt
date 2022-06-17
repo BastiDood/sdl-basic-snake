@@ -24,6 +24,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::Main SDL2::TTF)
 if(WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE Shell32)
 endif()
+target_include_directories(${PROJECT_NAME} PRIVATE ${PCG_CPP_PATH}/include)
 
 # C++ Configuration
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
