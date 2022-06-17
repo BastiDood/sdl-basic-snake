@@ -1,6 +1,5 @@
 .cache
 .vscode
 build
-deps
 res
 CMakeUserPresets.json

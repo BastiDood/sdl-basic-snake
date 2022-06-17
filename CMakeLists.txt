@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.19)
 
 project(Snake)
 add_executable(
@@ -17,14 +17,15 @@ add_executable(
 )
 
 # Dependency Resolution
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/SDL2)
 find_package(SDL2 REQUIRED)
-find_package(SDL2_ttf REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::Main SDL2::TTF)
+find_package(sdl2-ttf REQUIRED)
+find_path(PCG_INCLUDE_DIRS "pcg_random.hpp")
+
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::SDL2 SDL2::SDL2main SDL2::SDL2_ttf)
+target_include_directories(${PROJECT_NAME} PRIVATE ${PCG_INCLUDE_DIRS})
 if(WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE Shell32)
 endif()
-target_include_directories(${PROJECT_NAME} PRIVATE ${PCG_CPP_PATH}/include)
 
 # C++ Configuration
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
