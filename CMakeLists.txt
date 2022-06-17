@@ -15,11 +15,11 @@ add_executable(
 )
 
 # Dependency Resolution
-find_package(SDL2 REQUIRED)
-find_package(sdl2-ttf REQUIRED)
+find_package(SDL2 CONFIG REQUIRED)
+find_package(sdl2-ttf CONFIG REQUIRED)
 find_path(PCG_INCLUDE_DIRS "pcg_random.hpp")
 
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::SDL2 SDL2::SDL2main SDL2::SDL2_ttf)
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::SDL2 SDL2::SDL2main SDL2::SDL2-static SDL2::SDL2_ttf)
 target_include_directories(${PROJECT_NAME} PRIVATE ${PCG_INCLUDE_DIRS})
 if(WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE Shell32)
