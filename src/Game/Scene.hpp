@@ -42,7 +42,7 @@ namespace Game {
         const TTF::Font font;
 
         /** Handle to the current game window. */
-        const SDL::Window window{"Hello World", WINDOW_WIDTH, WINDOW_HEIGHT};
+        const SDL::Window window{"Snake", WINDOW_WIDTH, WINDOW_HEIGHT};
 
         /** Underlying renderer from SDL. */
         const SDL::Renderer renderer = window.create_renderer();
