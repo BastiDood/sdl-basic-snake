@@ -14,16 +14,16 @@ namespace Game {
     }
 
     std::optional<Snake::Coords> Snake::gen_apple() {
-        static constexpr auto WIDTH = static_cast<std::ptrdiff_t>(BOUNDS.x);
-        static constexpr auto HEIGHT = static_cast<std::ptrdiff_t>(BOUNDS.y);
+        static constexpr auto WIDTH = static_cast<std::ptrdiff_t>(BOUNDS.first);
+        static constexpr auto HEIGHT = static_cast<std::ptrdiff_t>(BOUNDS.second);
         static constexpr auto SIZE = WIDTH * HEIGHT;
 
         // Create a grid for all occupied cells
         std::array<bool, SIZE> grid;
         for (const auto & [x, y] : nodes) {
-            const auto col = static_cast<std::size_t>(x);
-            const auto row = static_cast<std::size_t>(y);
-            grid[row * WIDTH + col] = true;
+            const auto row = static_cast<std::size_t>(x);
+            const auto col = static_cast<std::size_t>(y);
+            grid[col * WIDTH + row] = true;
         }
 
         const auto rand = gen_index(SIZE - 1);
@@ -62,28 +62,52 @@ namespace Game {
                 if (--parent->y < 0) return false;
                 break;
             case Direction::DOWN:
-                if (++parent->y >= BOUNDS.y) return false;
+                if (++parent->y >= static_cast<int>(BOUNDS.first)) return false;
                 break;
             case Direction::LEFT:
                 if (--parent->x < 0) return false;
                 break;
             case Direction::RIGHT:
-                if (++parent->x >= BOUNDS.x) return false;
+                if (++parent->x >= static_cast<int>(BOUNDS.second)) return false;
                 break;
         }
 
         // Check if head will collide with any of the nodes
         const auto & head = nodes.front();
-        return std::none_of(nodes.cbegin() + 1, nodes.cend(), [head](const SDL_Point & node) {
-            return head.x == node.x && head.y == node.y;
-        });
+        const auto has_collision =
+            std::any_of(nodes.cbegin() + 1, nodes.cend(), [head](const SDL_Point & node) {
+                return head.x == node.x && head.y == node.y;
+            });
+        if (has_collision) return false;
+
+        // Check if head collides with an apple
+        const auto hits_apple =
+            head.x == static_cast<int>(apple.first) && head.y == static_cast<int>(apple.second);
+        if (!hits_apple) return true;
+
+        // Otherwise spawn a new apple
+        const auto maybe_coords = gen_apple();
+        if (!maybe_coords) return false;
+
+        // TODO: update the scoreboard and lengthen the snake
+        apple = *maybe_coords;
+        return true;
     }
 
     void Snake::draw(const SDL::Renderer & renderer, const int width, const int height) const {
+        const auto tile_x = width / static_cast<int>(BOUNDS.first);
+        const auto tile_y = height / static_cast<int>(BOUNDS.second);
+
+        // Render snake body
         renderer.set_render_draw_color(0, 255, 0, 255);
-        const SDL_Point tile_size{width / BOUNDS.x, height / BOUNDS.y};
-        for (const auto [x, y] : nodes)
-            renderer.fill_rect({x * tile_size.x, y * tile_size.y, tile_size.x, tile_size.y});
+        for (const auto & [x, y] : nodes)
+            renderer.fill_rect({x * tile_x, y * tile_y, tile_x, tile_y});
+
+        // Render apple
+        renderer.set_render_draw_color(255, 0, 0, 255);
+        const auto apple_x = static_cast<int>(apple.first);
+        const auto apple_y = static_cast<int>(apple.second);
+        renderer.fill_rect({apple_x * tile_x, apple_y * tile_y, tile_x, tile_y});
     }
 
     bool Snake::is_input_opposite_dir() const {
