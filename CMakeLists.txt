@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.19)
-
 project(Snake)
 add_executable(
     ${PROJECT_NAME}
