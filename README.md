@@ -22,10 +22,9 @@ git clone --recursive https://github.com/Some-Dood/sdl-basic-snake.git
 
 # Configure the CMake project using the default Ninja + Clang stack
 cmake --preset=ninja \
-      -DCMAKE_BUILD_TYPE=Release \
       -DSDL2_PATH=/path/to/sdl2 \
       -DSDL2_TTF_PATH=/path/to/sdl2_ttf \
-      -DPCG_CPP_PATH=/path/to/pcg-cpp \
+      -DPCG_CPP_PATH=/path/to/pcg-cpp
 
 # Build the project
 cmake --build build

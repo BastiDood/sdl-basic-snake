@@ -10,7 +10,10 @@
             "generator": "Ninja",
             "binaryDir": "build",
             "warnings": { "dev": false },
-            "cacheVariables": { "CMAKE_EXPORT_COMPILE_COMMANDS": true }
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": true
+            }
         }
     ]
 }
