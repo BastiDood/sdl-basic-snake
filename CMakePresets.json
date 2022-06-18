@@ -7,7 +7,7 @@
     "configurePresets": [
         {
             "name": "ninja",
-            "generator": "Ninja Multi-Config",
+            "generator": "Ninja",
             "binaryDir": "build",
             "warnings": { "dev": false },
             "cacheVariables": { "CMAKE_EXPORT_COMPILE_COMMANDS": true }

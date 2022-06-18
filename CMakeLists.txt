@@ -15,12 +15,12 @@ add_executable(
 )
 
 # Dependency Resolution
-find_package(SDL2 CONFIG REQUIRED)
-find_package(sdl2-ttf CONFIG REQUIRED)
-find_path(PCG_INCLUDE_DIRS "pcg_random.hpp")
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/SDL2)
+find_package(SDL2 REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::SDL2 SDL2::SDL2main SDL2::SDL2-static SDL2::SDL2_ttf)
-target_include_directories(${PROJECT_NAME} PRIVATE ${PCG_INCLUDE_DIRS})
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::Main SDL2::TTF)
+target_include_directories(${PROJECT_NAME} PRIVATE ${PCG_CPP_PATH}/include)
 if(WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE Shell32)
 endif()
