@@ -95,8 +95,9 @@ namespace Game {
     }
 
     void Snake::draw(const SDL::Renderer & renderer, const int width, const int height) const {
-        const auto tile_x = width / static_cast<int>(BOUNDS.first);
-        const auto tile_y = height / static_cast<int>(BOUNDS.second);
+        const auto side = static_cast<int>(std::min(BOUNDS.first, BOUNDS.second));
+        const auto tile_x = width / side;
+        const auto tile_y = height / side;
 
         // Render snake body
         renderer.set_render_draw_color(0, 255, 0, 255);
@@ -120,7 +121,7 @@ namespace Game {
     }
 
     void Snake::reset() {
-        direction = Direction::RIGHT;
+        direction = input = Direction::RIGHT;
         nodes.clear();
         nodes.push_back({2, 0});
         nodes.push_back({1, 0});

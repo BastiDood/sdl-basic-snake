@@ -47,7 +47,7 @@ namespace Game {
             const auto [width, height] = renderer.get_output_size();
             const auto side = std::min(width, height);
             renderer.set_viewport({{0, 0, side, side}});
-            snake.draw(renderer, width, height);
+            snake.draw(renderer, side, side);
 
             // Draw the current score
             renderer.set_viewport({{0, side, width, height - side}});
