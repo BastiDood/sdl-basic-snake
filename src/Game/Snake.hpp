@@ -7,11 +7,9 @@
 
 namespace Game {
     class Snake {
-        using Coords = std::pair<std::size_t, std::size_t>;
-        static constexpr Coords BOUNDS{10, 10};
-
       public:
         enum class Direction : std::uint8_t { UP, DOWN, LEFT, RIGHT };
+        enum class TurnOutcome : std::uint8_t { LOST, WON, PROCEED, SCORED };
 
         /**
          * Controls the upcoming direction in the next tick.
@@ -21,7 +19,7 @@ namespace Game {
         void set_current_direction(Direction dir);
 
         /** Returns `true` if tick was successful. Otherwise, the game is over. */
-        bool tick();
+        TurnOutcome tick();
         /** Render the snake on the screen. */
         void draw(const SDL::Renderer & renderer, int width, int height) const;
 
@@ -29,6 +27,9 @@ namespace Game {
         void reset();
 
       private:
+        using Coords = std::pair<std::size_t, std::size_t>;
+        static constexpr Coords BOUNDS{10, 10};
+
         /** Generates a random index from 0 to `max`. */
         static std::ptrdiff_t gen_index(std::ptrdiff_t max);
 

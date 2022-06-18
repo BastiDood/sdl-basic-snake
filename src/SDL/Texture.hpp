@@ -14,6 +14,6 @@ namespace SDL {
 
       private:
         Texture(SDL_Texture * self);
-        const Pointer self;
+        Pointer self;
     };
 } // namespace SDL

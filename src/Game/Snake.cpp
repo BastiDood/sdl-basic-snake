@@ -47,7 +47,7 @@ namespace Game {
         return std::nullopt;
     }
 
-    bool Snake::tick() {
+    Snake::TurnOutcome Snake::tick() {
         auto parent = nodes.end() - 1;
         do {
             // Pull new position from the parent
@@ -59,16 +59,16 @@ namespace Game {
         direction = is_input_opposite_dir() ? direction : input;
         switch (direction) {
             case Direction::UP:
-                if (--parent->y < 0) return false;
+                if (--parent->y < 0) return TurnOutcome::LOST;
                 break;
             case Direction::DOWN:
-                if (++parent->y >= static_cast<int>(BOUNDS.first)) return false;
+                if (++parent->y >= static_cast<int>(BOUNDS.first)) return TurnOutcome::LOST;
                 break;
             case Direction::LEFT:
-                if (--parent->x < 0) return false;
+                if (--parent->x < 0) return TurnOutcome::LOST;
                 break;
             case Direction::RIGHT:
-                if (++parent->x >= static_cast<int>(BOUNDS.second)) return false;
+                if (++parent->x >= static_cast<int>(BOUNDS.second)) return TurnOutcome::LOST;
                 break;
         }
 
@@ -78,20 +78,19 @@ namespace Game {
             std::any_of(nodes.cbegin() + 1, nodes.cend(), [head](const SDL_Point & node) {
                 return head.x == node.x && head.y == node.y;
             });
-        if (has_collision) return false;
+        if (has_collision) return TurnOutcome::LOST;
 
         // Check if head collides with an apple
         const auto hits_apple =
             head.x == static_cast<int>(apple.first) && head.y == static_cast<int>(apple.second);
-        if (!hits_apple) return true;
+        if (!hits_apple) return TurnOutcome::PROCEED;
 
         // Otherwise spawn a new apple
         const auto maybe_coords = gen_apple();
-        if (!maybe_coords) return false;
+        if (!maybe_coords) return TurnOutcome::WON;
 
-        // TODO: update the scoreboard and lengthen the snake
         apple = *maybe_coords;
-        return true;
+        return TurnOutcome::SCORED;
     }
 
     void Snake::draw(const SDL::Renderer & renderer, const int width, const int height) const {

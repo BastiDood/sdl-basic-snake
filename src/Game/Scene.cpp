@@ -1,6 +1,8 @@
 #include "Scene.hpp"
 
 #include <algorithm>
+#include <format>
+#include <stdexcept>
 #include <SDL_keycode.h>
 
 namespace Game {
@@ -32,9 +34,19 @@ namespace Game {
     }
 
     void Scene::tick() {
-        if (is_playing) {
-            is_playing = snake.tick();
-            pending_reset = !is_playing;
+        if (!is_playing) return;
+        switch (snake.tick()) {
+            case Snake::TurnOutcome::LOST:
+            case Snake::TurnOutcome::WON: throw std::runtime_error{"not yet implemented"};
+            case Snake::TurnOutcome::SCORED: {
+                const auto text = std::format("Score: {}", ++score);
+                const auto surface = font.render_text_blended(text, {255, 255, 255, 255});
+                score_texture = renderer.create_texture_from_surface(surface);
+            }
+            case Snake::TurnOutcome::PROCEED:
+                is_playing = true;
+                pending_reset = !is_playing;
+                break;
         }
     }
 
