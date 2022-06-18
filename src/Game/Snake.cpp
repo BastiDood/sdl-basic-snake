@@ -48,6 +48,7 @@ namespace Game {
     }
 
     Snake::TurnOutcome Snake::tick() {
+        const auto tail = nodes.back();
         auto parent = nodes.end() - 1;
         do {
             // Pull new position from the parent
@@ -89,6 +90,7 @@ namespace Game {
         const auto maybe_coords = gen_apple();
         if (!maybe_coords) return TurnOutcome::WON;
 
+        nodes.push_back(tail);
         apple = *maybe_coords;
         return TurnOutcome::SCORED;
     }
