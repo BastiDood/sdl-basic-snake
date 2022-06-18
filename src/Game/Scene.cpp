@@ -28,7 +28,6 @@ namespace Game {
         if (pending_reset) {
             is_playing = true;
             pending_reset = false;
-            score = 0;
             snake.reset();
         }
     }
@@ -42,7 +41,7 @@ namespace Game {
                 break;
             case Snake::TurnOutcome::WON: throw std::runtime_error{"not yet implemented"};
             case Snake::TurnOutcome::SCORED: {
-                const auto text = std::format("Score: {}", ++score);
+                const auto text = std::format("Score: {}", snake.get_score());
                 const auto surface = font.render_text_blended(text, {255, 255, 255, 255});
                 score_texture = renderer.create_texture_from_surface(surface);
             }

@@ -35,8 +35,6 @@ namespace Game {
         bool is_playing = true;
         /** Checks whether the game is pending a new game. */
         bool pending_reset = false;
-        /** Game starts with no score. */
-        uint16_t score = 0;
 
         /** Font to be used for rendering scores. */
         const TTF::Font font;

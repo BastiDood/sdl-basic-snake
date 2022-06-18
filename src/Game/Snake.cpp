@@ -129,5 +129,7 @@ namespace Game {
         nodes.push_back({});
     }
 
+    std::size_t Snake::get_score() const { return nodes.size() - 3; }
+
     void Snake::set_current_direction(const Direction dir) { input = dir; }
 } // namespace Game

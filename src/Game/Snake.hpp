@@ -11,6 +11,8 @@ namespace Game {
         enum class Direction : std::uint8_t { UP, DOWN, LEFT, RIGHT };
         enum class TurnOutcome : std::uint8_t { LOST, WON, PROCEED, SCORED };
 
+        std::size_t get_score() const;
+
         /**
          * Controls the upcoming direction in the next tick.
          * Ignore invalid inputs, such as when trying to send
