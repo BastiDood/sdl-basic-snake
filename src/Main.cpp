@@ -19,7 +19,7 @@ int SDL_main(const int argc, char ** const argv) {
     Game::Scene scene{argv[1]};
 
     // Initialize event loop
-    constexpr std::uint64_t TICK_TIME = 250;
+    static constexpr std::uint64_t TICK_TIME = 250;
     auto next_render = static_cast<std::int64_t>(SDL_GetTicks() + TICK_TIME);
     while (true) {
         // Only re-draw graphics once `RENDER_INTERVAL` has passed
@@ -35,6 +35,7 @@ int SDL_main(const int argc, char ** const argv) {
             timeout = std::max(0LL, next_render - SDL_GetTicks());
         }
 
+        // Mutate the game state
         scene.tick();
         next_render = static_cast<std::int64_t>(SDL_GetTicks() + TICK_TIME);
     }
