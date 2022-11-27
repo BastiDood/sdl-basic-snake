@@ -30,8 +30,8 @@ namespace SDL {
         if (result != 0) throw std::runtime_error{SDL_GetError()};
     }
 
-    void Renderer::set_render_draw_color(uint8_t red, uint8_t green, uint8_t blue,
-                                         uint8_t alpha) const {
+    void Renderer::set_render_draw_color(const uint8_t red, const uint8_t green, const uint8_t blue,
+                                         const uint8_t alpha) const {
         const int result = SDL_SetRenderDrawColor(self.get(), red, green, blue, alpha);
         if (result != 0) throw std::runtime_error{SDL_GetError()};
     }
