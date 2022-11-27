@@ -9,7 +9,7 @@
 namespace Game {
     std::ptrdiff_t Snake::gen_index(const std::ptrdiff_t max) {
         static pcg32 rng{pcg_extras::seed_seq_from<std::random_device>{}};
-        const std::uniform_int_distribution<std::ptrdiff_t> dist{0, max};
+        std::uniform_int_distribution<std::ptrdiff_t> dist{0, max};
         return dist(rng);
     }
 
