@@ -48,7 +48,10 @@ namespace Game {
     }
 
     Snake::TurnOutcome Snake::tick() {
+        // For future reference...
         const auto tail = nodes.back();
+
+        // Extract the parent position and move the child there
         auto parent = nodes.end() - 1;
         do {
             // Pull new position from the parent
@@ -63,13 +66,13 @@ namespace Game {
                 if (--parent->y < 0) return TurnOutcome::LOST;
                 break;
             case Direction::DOWN:
-                if (++parent->y >= static_cast<int>(BOUNDS.first)) return TurnOutcome::LOST;
+                if (++parent->y >= static_cast<int>(BOUNDS.second)) return TurnOutcome::LOST;
                 break;
             case Direction::LEFT:
                 if (--parent->x < 0) return TurnOutcome::LOST;
                 break;
             case Direction::RIGHT:
-                if (++parent->x >= static_cast<int>(BOUNDS.second)) return TurnOutcome::LOST;
+                if (++parent->x >= static_cast<int>(BOUNDS.first)) return TurnOutcome::LOST;
                 break;
         }
 
